@@ -14,7 +14,7 @@
 }
 
 .board {
-  border: 1px solid black;
+  border: 3px solid black;
   display: grid;
   grid-template-rows: 1fr 2fr 1fr;
   background-color: green;
@@ -49,7 +49,17 @@
 }
 .board__mid-area__mid {
   display: grid;
+  grid-template-rows: 1.2fr 1fr;
+}
+.board__mid-area__mid__coins {
+  display: flex;
   justify-content: center;
+}
+.board__mid-area__mid__text {
+  background-color: rgba(0, 128, 0, 0);
+  border: none;
+  resize: none;
+  text-align: right;
 }
 .board__mid-area__right__right-hand {
   display: grid;
@@ -85,11 +95,14 @@
 }
 
 .card {
-  border: 1px solid black;
+  border: 2px solid black;
   width: 36px;
   height: 50px;
   border-radius: 4px;
   box-shadow: 2px 3px rgba(63, 63, 63, 0.521);
+  background-color: brown;
+  background-image: url(assets/cards_back.png);
+  background-size: cover;
 }
 
 .rotate-right > * {
