@@ -1,0 +1,130 @@
+* { 
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  box-sizing: border-box;
+}
+
+.app {
+  display: grid;
+  height: 100vh;
+  grid-template-columns: 1fr;
+  grid-template-rows: 2fr 1fr 1fr;
+  padding: 4px;
+}
+
+.board {
+  border: 1px solid black;
+  display: grid;
+  grid-template-rows: 1fr 2fr 1fr;
+  background-color: green;
+  border-radius: 20px;
+  padding: 10px;
+  box-shadow: 2px 4px rgba(20, 20, 20, 0.753);
+
+  &__top-area {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    &__top-hand {
+      border: 1px solid grey;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+    }
+  }
+
+  &__mid-area {
+    border: 1px solid grey;
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    align-items: center;
+    justify-content: center;
+    
+    &__left {
+      &__left-hand {
+        display: grid;
+        grid-template-rows: repeat(5, 1fr);
+        justify-content: center;
+
+        & > * {
+          margin: -5px;
+        }
+      }
+    }
+
+    &__mid {
+      display: grid;
+      justify-content: center;
+    }
+
+    &__right {
+      &__right-hand {
+        display: grid;
+        grid-template-rows: repeat(5, 1fr);
+        justify-content: center;
+
+        & > * {
+          margin: -5px;
+        }
+      }
+    }
+  }
+
+  &__bot-area {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    &__bot-hand {
+      border: 1px solid grey;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 20px;
+    }
+  }
+}
+
+
+.card-grid {
+  display: grid;
+  border: 1px solid black;
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-rows: 1fr 1fr;
+  padding: 10px;
+  gap: 6px;
+
+}
+
+
+.bet {
+  border: 1px solid black;
+}
+
+
+// Each specific card model
+.card {
+  border: 1px solid black;
+  width: 36px;
+  height: 50px;
+  border-radius: 4px;
+  box-shadow: 2px 3px rgba(63, 63, 63, 0.521);
+}
+
+.rotate-right {
+  & > * {
+    transform: rotate(90deg)
+  }
+}
+
+.rotate-left {
+  & > * {
+    transform: rotate(270deg)
+  }
+}
+
+.player-hand {
+  & > * {
+    transform: scale(1.4);
+  }
+}
