@@ -1,7 +1,7 @@
 * {
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
+  font-family: "Ubuntu", sans-serif;
   box-sizing: border-box;
 }
 
@@ -100,9 +100,36 @@
   height: 50px;
   border-radius: 4px;
   box-shadow: 2px 3px rgba(63, 63, 63, 0.521);
-  background-color: brown;
   background-image: url(assets/cards_back.png);
+  background-color: brown;
   background-size: cover;
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  justify-content: center;
+}
+.card .u {
+  margin-top: 4px;
+  -webkit-text-stroke: 0.4px black;
+  height: 60%;
+}
+.card .l {
+  height: 40%;
+}
+
+.heart {
+  background-image: url(assets/cards_heart.png);
+}
+
+.spade {
+  background-image: url(assets/cards_spade.png);
+}
+
+.diamond {
+  background-image: url(assets/cards_diamond.png);
+}
+
+.club {
+  background-image: url(assets/cards_club.png);
 }
 
 .rotate-right > * {
@@ -113,6 +140,6 @@
   transform: rotate(270deg);
 }
 
-.player-hand > * {
+.mainPlayer > * {
   transform: scale(1.4);
 }

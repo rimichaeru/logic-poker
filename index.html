@@ -5,6 +5,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Logic Poker</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap" rel="stylesheet"> 
   <link rel="stylesheet" href="main.css">
 </head>
 
@@ -12,23 +14,23 @@
   <div class="app">
     <main class="board">
       <div class="board__top-area">
-        <div class="board__top-area__top-hand">
-          <div class="card"></div>
-          <div class="card"></div>
-          <div class="card"></div>
-          <div class="card"></div>
-          <div class="card"></div>
+        <div class="board__top-area__top-hand topPlayer">
+          <div class="card hidden"></div>
+          <div class="card hidden"></div>
+          <div class="card hidden"></div>
+          <div class="card hidden"></div>
+          <div class="card hidden"></div>
         </div>
       </div>
 
       <div class="board__mid-area">
         <div class="board__mid-area__left">
-          <div class="board__mid-area__left__left-hand rotate-right">
-            <div class="card"></div>
-            <div class="card"></div>
-            <div class="card"></div>
-            <div class="card"></div>
-            <div class="card"></div>
+          <div class="board__mid-area__left__left-hand leftPlayer rotate-right">
+            <div class="card hidden"></div>
+            <div class="card hidden"></div>
+            <div class="card hidden"></div>
+            <div class="card hidden"></div>
+            <div class="card hidden"></div>
           </div>
         </div>
 
@@ -38,46 +40,49 @@
         </div>
         
         <div class="board__mid-area__right">
-          <div class="board__mid-area__right__right-hand rotate-left">
-            <div class="card"></div>
-            <div class="card"></div>
-            <div class="card"></div>
-            <div class="card"></div>
-            <div class="card"></div>
+          <div class="board__mid-area__right__right-hand rightPlayer rotate-left">
+            <div class="card hidden"></div>
+            <div class="card hidden"></div>
+            <div class="card hidden"></div>
+            <div class="card hidden"></div>
+            <div class="card hidden"></div>
           </div>
         </div>
       </div>
 
       <div class="board__bot-area">
-        <div class="board__bot-area__bot-hand player-hand">
-          <div class="card"></div>
-          <div class="card"></div>
-          <div class="card"></div>
-          <div class="card"></div>
-          <div class="card"></div>
+        <div class="board__bot-area__bot-hand mainPlayer">
+          <div class="card hidden"></div>
+          <div class="card hidden"></div>
+          <div class="card hidden"></div>
+          <div class="card hidden"></div>
+          <div class="card hidden"></div>
         </div>
       </div>
     </main>
   
     <div class="card-grid">
-      <div class="card"></div>
-      <div class="card"></div>
-      <div class="card"></div>
-      <div class="card"></div>
-      <div class="card"></div>
-      <div class="card"></div>
-      <div class="card"></div>
-      <div class="card"></div>
-      <div class="card"></div>
-      <div class="card"></div>
-      <div class="card"></div>
-      <div class="card"></div>
-      <div class="card"></div>
-      <div class="card"></div>
-      <div class="card"></div>
+      <div class="card hidden"></div>
+      <div class="card hidden"></div>
+      <div class="card hidden"></div>
+      <div class="card hidden"></div>
+      <div class="card hidden"></div>
+      <div class="card hidden"></div>
+      <div class="card hidden"></div>
+      <div class="card hidden"></div>
+      <div class="card hidden"></div>
+      <div class="card hidden"></div>
+      <div class="card hidden"></div>
+      <div class="card hidden"></div>
+      <div class="card hidden"></div>
+      <div class="card hidden"></div>
+      <div class="card hidden"></div>
     </div>
   
     <div class="bet">
+      <input type="text" class="amount">
+      <button class="send-bet">Bet!</button>
+
   
     </div>
   </div>
