@@ -1,90 +1,37 @@
-class Deck {
-  constructor() {
-    this.deck = this.create();
-  }
+// ------------ ANTE
+// randomises ante amount for players to chip in EACH
 
-  create = () => {
-    const suits = ["H", "S", "C", "D"];
-    const numbers = [2, 3, 4, 5, 6, 7, 8, 9, 10];
-    const pictures = ["J", "Q", "K", "A"];
+const radioLow = document.querySelector("#low");
+const radioMid = document.querySelector("#mid");
+const radioHigh = document.querySelector("#high");
 
-    let deck = [];
-
-    for (const suit of suits) {
-      for (const number of numbers) {
-        deck.push(number + suit);
-      }
-
-      for (const picture of pictures) {
-        deck.push(picture + suit);
-      }
-    }
-    return deck;
-  };
-
-  dealCards = (deck, cardAmount) => {
-    let dealtCards = [];
-
-    for (let i = 0; i < cardAmount; i++) {
-      if (deck.length == 0) {
-        break;
-      }
-      // Randomise between 0 and deck length, eg. 0-51
-      const randomCard = deck[Math.floor(Math.random() * deck.length)];
-      dealtCards.push(randomCard);
-      deck = deck.filter((card) => {
-        return randomCard != card;
-      });
-    }
-
-    return [deck, dealtCards];
-  };
+if (radioHigh.checked) { // high
+  radioCheckMult = 4;
+  radioCheckAdd = Math.floor(Math.random()*50)+38;;
+} else if (radioMid.checked) { // mid
+  radioCheckMult = 2;
+  radioCheckAdd = Math.floor(Math.random()*26)+16;;
+} else { // low
+  radioCheckMult = 1;
+  radioCheckAdd = 1;
 }
 
-class Player {
-  constructor(location) {
-    this.location = location;
-    this.playerHand = this.getCards(activeCards);
-  }
+console.log(radioCheckMult);
 
-  // Must be called Temp, otherwise activeCards doesn't update globally
-  getCards(activeCardsTemp) {
-    // deals 5 cards from the activeCards and updates activeCards
-    const playerHandArr = deckInst.dealCards(
-      (deck = activeCards),
-      (cardAmount = 5)
-    );
-    activeCards = playerHandArr[0];
-    return playerHandArr[1];
-  }
+// base ante between 20 and 80
+const baseAmount = Math.floor(Math.random()*80)+20;
+// then multiply by 1 if low, 2 if mid, 4 if high
+const ante = (baseAmount + radioCheckAdd) * radioCheckMult;
 
-  showCards() {
-    const playerCards = document.querySelectorAll(`.${this.location} .card`);
 
-    for (let i = 0; i < this.playerHand.length; i++) {
-      playerCards[i].id = this.playerHand[i];
 
-      if (this.playerHand[i][this.playerHand[i].length - 1] == "H") {
-        playerCards[i].classList.add("heart");
-      } else if (this.playerHand[i][this.playerHand[i].length - 1] == "C") {
-        playerCards[i].classList.add("club");
-      } else if (this.playerHand[i][this.playerHand[i].length - 1] == "S") {
-        playerCards[i].classList.add("spade");
-      } else {
-        playerCards[i].classList.add("diamond");
-      }
 
-      playerCards[i].innerHTML += `<p class="u"></p><div class="l"></div>`;
-      playerCards[i].querySelector(".u").textContent = this.playerHand[i].slice(
-        0,
-        length - 1
-      );
-    }
-  }
-}
+console.log(ante);
+
 
 // creates a fresh deck in .deck
 let deckInst = new Deck();
+
 
 // deals 20 random cards for the play as the activeCards
 let activeCardsArr = deckInst.dealCards(
@@ -108,61 +55,87 @@ console.log(pTwo.playerHand);
 console.log(pThree.playerHand);
 console.log(pMain.playerHand);
 
-console.log("activeCards:", activeCards);
+console.log("Must be an empty arr after dealing - activeCards: ", activeCards);
 
 // Currently, hidden class does nothing, is it needed?
 
-// HTML DOM links
+// ----------------------------------- HTML DOM links
 
 // show grid cards
 
 
 // ORDERING GRID CARDS FIRST
-// let orderedSavedCards = [];
-// for (let i = 0; i < savedCards.length; i++) {
-//   // get card value and convert to a number for easy comparison
-//   var currentCardValue = savedCards[i].slice(0, length - 1);
-//   if (currentCardValue == "J") {
-//     currentCardValue = 11;
-//   } else if (currentCardValue == "Q") {
-//     currentCardValue = 12;
-//   } else if (currentCardValue == "K") {
-//     currentCardValue = 13;
-//   } else if (currentCardValue == "A"){
-//     currentCardValue = 14;
-//   } else {
-//     currentCardValue = Number(currentCardValue);
-//   }
-//   orderedSavedCards.push(currentCardValue + savedCards[i][savedCards[i].length-1]);
-// }
+const orderCards = (cardArray) => {
 
-// let sortCards = (inputArr) => {
-
-//   // WHY DOES THIS NOT WORK?
-//   const getVal = (arrayItem) => {
-//     let length = arrayItem.length;
-//     return arrayItem[length-1];
-//   }
+  let orderedSavedCards = [];
+  for (let i = 0; i < cardArray.length; i++) {
+    // get card value and convert to a number for easy comparison
+    var currentCardValue = cardArray[i].slice(0, length - 1);
+    if (currentCardValue == "J") {
+      currentCardValue = 11;
+    } else if (currentCardValue == "Q") {
+      currentCardValue = 12;
+    } else if (currentCardValue == "K") {
+      currentCardValue = 13;
+    } else if (currentCardValue == "A"){
+      currentCardValue = 14;
+    } else {
+      currentCardValue = Number(currentCardValue);
+    }
+    orderedSavedCards.push(currentCardValue + cardArray[i][cardArray[i].length-1]);
+  }
   
-//   let len = inputArr.length;
-//   let swapped;
-//   do {
-//     swapped = false;
-//     for (let i = 0; i < len; i++) {
-//       if (getVal(inputArr[i]) > getVal(inputArr[i + 1])) {
-//         let tmp = inputArr[i];
-//         inputArr[i] = inputArr[i + 1];
-//         inputArr[i + 1] = tmp;
-//         swapped = true;
-//       }
-//     }
-//   } while (swapped);
-//   return inputArr;
-// };
+  let sortCards = (inputArr) => {
+  
+    const getVal = (arrayItem="") => {
+      return Number(arrayItem.slice(0, arrayItem.length-1));
+    }
+    
+    let len = inputArr.length;
+    let swapped;
+    do {
+      swapped = false;
+      for (let i = 0; i < len; i++) {
+        if (getVal(inputArr[i]) > getVal(inputArr[i + 1])) {
+          let tmp = inputArr[i];
+          inputArr[i] = inputArr[i + 1];
+          inputArr[i + 1] = tmp;
+          swapped = true;
+        }
+      }
+    } while (swapped);
+    return inputArr;
+  
+  };
 
-// console.log(sortCards(orderedSavedCards))
-// console.log(orderedSavedCards);
+  // call the card sort
+  orderedSavedCards = sortCards(orderedSavedCards)
+  orderedSavedCards.shift() //removes first undefined item from the card sort
+  
+  // change numbers back into Ace/King/Queen/Jack
+  let reversedOrderedCards = [];
+  for (let i = 0; i < orderedSavedCards.length; i++) {
+    var currentCardValue = orderedSavedCards[i].slice(0, length - 1);
+    if (currentCardValue == "11") {
+      currentCardValue = "J";
+    } else if (currentCardValue == "12") {
+      currentCardValue = "Q";
+    } else if (currentCardValue == "13") {
+      currentCardValue = "K";
+    } else if (currentCardValue == "14"){
+      currentCardValue = "A";
+    } else {
+      currentCardValue = currentCardValue;
+    }
+    reversedOrderedCards.push(currentCardValue + orderedSavedCards[i][orderedSavedCards[i].length-1]);
+  }
+  
+  // currently sort is low to high, reverse it to show high cards first
+  return reversedOrderedCards.reverse()
+}
 
+
+savedCards = orderCards(savedCards)
 
 
 const cardGridCards = document.querySelectorAll(".card-grid .card");
@@ -190,3 +163,25 @@ for (let i = 0; i < savedCards.length; i++) {
 pMain.showCards();
 
 // Hide all cards after they're set
+
+
+
+
+
+
+const test1 = (input) => {
+  return input.length;
+}
+
+const test2 = (input) => {
+  return input[0];
+}
+
+const test3 = (input) => {
+  return input[input.length-1];
+}
+
+
+const cows = (milk) => {
+  return Number(milk.slice(0, milk.length-1));
+}
