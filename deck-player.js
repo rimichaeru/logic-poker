@@ -45,6 +45,9 @@ class Player {
   constructor(location) {
     this.location = location;
     this.playerHand = this.getCards(activeCards);
+    // turn off the winner class
+    document.querySelector(`.${this.location}`).classList.toggle("winner");
+    
   }
 
   // Must be called Temp, otherwise activeCards doesn't update globally

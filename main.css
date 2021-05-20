@@ -31,6 +31,7 @@
   border: 1px solid grey;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
+  padding: 4px;
 }
 .board__mid-area {
   border: 1px solid grey;
@@ -48,18 +49,35 @@
   margin: -5px;
 }
 .board__mid-area__mid {
-  display: grid;
-  grid-template-rows: 1.2fr 1fr;
+  display: flex;
+  flex-direction: column;
+  row-gap: 16px;
+}
+.board__mid-area__mid .coin-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 .board__mid-area__mid__coins {
-  display: flex;
-  justify-content: center;
+  font-size: 20px;
+  font-weight: 900;
+  color: gold;
+  -webkit-text-stroke: 1px gold;
+  text-shadow: 2px 2px rgba(68, 68, 68, 0.733);
+  margin-bottom: 8px;
+}
+.board__mid-area__mid__img {
+  size: 100px;
+  height: 80px;
 }
 .board__mid-area__mid__text {
   background-color: rgba(0, 128, 0, 0);
   border: none;
   resize: none;
   text-align: right;
+  -webkit-text-stroke: 0.4px;
+  text-shadow: 1px 2px rgba(68, 68, 68, 0.452);
 }
 .board__mid-area__right__right-hand {
   display: grid;
@@ -79,6 +97,7 @@
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: 20px;
+  padding: 12px;
 }
 
 .card-grid {
@@ -92,6 +111,43 @@
 
 .bet {
   border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 6px;
+}
+.bet__settings .radio-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 6px;
+}
+.bet__settings .rounded-container {
+  display: flex;
+  justify-content: flex-end;
+  gap: 6px;
+}
+.bet__input-container {
+  display: flex;
+  justify-content: center;
+  margin-top: -2%;
+  gap: 10px;
+}
+.bet__input-container .coin-amount {
+  color: green;
+  font-size: 20px;
+  text-align: center;
+  -webkit-text-stroke: 0.6px;
+}
+.bet__input-container .coin-label {
+  text-align: right;
+}
+.bet__input-container .bet-amount {
+  width: 80px;
+  font-size: 30px;
+  text-align: center;
+}
+.bet .copy {
+  font-size: 12px;
 }
 
 .card {
@@ -130,6 +186,12 @@
 
 .club {
   background-image: url(assets/cards_club.png);
+}
+
+.winner {
+  border: 4px solid rgba(192, 221, 30, 0.884);
+  border-radius: 10px;
+  background-color: rgba(192, 221, 30, 0.884);
 }
 
 .rotate-right > * {

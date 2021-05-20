@@ -1,3 +1,12 @@
+// ---------------- HELD COINS
+const heldCoins = 3000;
+const inputBet = Number(document.querySelector('.bet-amount').textContent);
+const displayedCoins = document.querySelector(".coin-amount") 
+displayedCoins.textContent = heldCoins;
+if (typeof inputBet !== "number" || inputBet <= 0) {
+  
+}
+
 // ------------ ANTE
 // randomises ante amount for players to chip in EACH
 
@@ -5,28 +14,45 @@ const radioLow = document.querySelector("#low");
 const radioMid = document.querySelector("#mid");
 const radioHigh = document.querySelector("#high");
 
+
 if (radioHigh.checked) { // high
   radioCheckMult = 4;
   radioCheckAdd = Math.floor(Math.random()*50)+38;;
+  document.querySelector(".coin-img").src = "./assets/coins_high.png";
 } else if (radioMid.checked) { // mid
   radioCheckMult = 2;
   radioCheckAdd = Math.floor(Math.random()*26)+16;;
-} else { // low
+  document.querySelector(".coin-img").src = "./assets/coins_mid.png";
+} else if (radioLow.checked) { // low
   radioCheckMult = 1;
   radioCheckAdd = 1;
+  document.querySelector(".coin-img").src = "./assets/coins_low.png";
+} else {
+  radioCheckMult = 1;
+  radioCheckAdd = 1;
+  document.querySelector(".coin-img").src = "./assets/coins_low.png";
 }
 
-console.log(radioCheckMult);
-
 // base ante between 20 and 80
-const baseAmount = Math.floor(Math.random()*80)+20;
-// then multiply by 1 if low, 2 if mid, 4 if high
-const ante = (baseAmount + radioCheckAdd) * radioCheckMult;
+const baseAmount = Math.floor(Math.random()*80)+40;
+
+const rounded = document.querySelector('#rounded');
+let ante = 0;
+if (rounded.checked) {
+  ante = Math.round(((baseAmount + radioCheckAdd) * radioCheckMult/10/4))*10;
+} else {
+  ante = Math.round((baseAmount + radioCheckAdd) * radioCheckMult / 4);
+}
+
+const coins = document.querySelector('.board__mid-area__mid__coins');
+const text = document.querySelector('.board__mid-area__mid__text');
+text.textContent = `Each player covers the ${ante} coin ante.`
+coins.textContent = ante * 4;
 
 
 
 
-console.log(ante);
+
 
 
 // creates a fresh deck in .deck
@@ -162,26 +188,13 @@ for (let i = 0; i < savedCards.length; i++) {
 
 pMain.showCards();
 
+
 // Hide all cards after they're set
 
 
+const decideWinner = (mainHand, oneHand, twoHand, threeHand) => {
+  pOne.showCards();
+  pTwo.showCards();
+  pThree.showCards();
 
-
-
-
-const test1 = (input) => {
-  return input.length;
-}
-
-const test2 = (input) => {
-  return input[0];
-}
-
-const test3 = (input) => {
-  return input[input.length-1];
-}
-
-
-const cows = (milk) => {
-  return Number(milk.slice(0, milk.length-1));
 }

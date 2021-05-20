@@ -14,7 +14,7 @@
   <div class="app">
     <main class="board">
       <div class="board__top-area">
-        <div class="board__top-area__top-hand topPlayer">
+        <div class="board__top-area__top-hand topPlayer winner">
           <div class="card hidden"></div>
           <div class="card hidden"></div>
           <div class="card hidden"></div>
@@ -25,7 +25,7 @@
 
       <div class="board__mid-area">
         <div class="board__mid-area__left">
-          <div class="board__mid-area__left__left-hand leftPlayer rotate-right">
+          <div class="board__mid-area__left__left-hand leftPlayer rotate-right winner">
             <div class="card hidden"></div>
             <div class="card hidden"></div>
             <div class="card hidden"></div>
@@ -35,12 +35,15 @@
         </div>
 
         <div class="board__mid-area__mid">
-          <p class="board__mid-area__mid__coins">Coins</p>
-          <textarea name="" id="" cols="1" rows="4" class="board__mid-area__mid__text" readonly>Welcome</textarea>
+          <div class="coin-container">
+            <p class="board__mid-area__mid__coins">Coins</p>
+            <img src="" alt="Coins" class="board__mid-area__mid__img coin-img">
+          </div>
+          <p class="board__mid-area__mid__text" readonly>Welcome</p>
         </div>
         
         <div class="board__mid-area__right">
-          <div class="board__mid-area__right__right-hand rightPlayer rotate-left">
+          <div class="board__mid-area__right__right-hand rightPlayer rotate-left winner">
             <div class="card hidden"></div>
             <div class="card hidden"></div>
             <div class="card hidden"></div>
@@ -51,7 +54,7 @@
       </div>
 
       <div class="board__bot-area">
-        <div class="board__bot-area__bot-hand mainPlayer">
+        <div class="board__bot-area__bot-hand mainPlayer winner">
           <div class="card hidden"></div>
           <div class="card hidden"></div>
           <div class="card hidden"></div>
@@ -80,18 +83,33 @@
     </div>
   
     <div class="bet">
-      <div class="radio-buttons">
-        <input type="radio" id="low" name="betAmount" value="low" class="radio">
-        <label for="low">Low</label>
-        <input type="radio" id="mid" name="betAmount" value="mid" class="radio">
-        <label for="low">Mid</label>
-        <input type="radio" id="high" name="betAmount" value="high" class="radio">
-        <label for="low">High</label>
+      <div class="bet__settings">
+        <div class="radio-buttons">
+          <p>Ante: </p>
+          <input type="radio" id="low" name="betAmount" value="low" class="radio">
+          <label for="low">Low</label>
+          <input type="radio" id="mid" name="betAmount" value="mid" class="radio">
+          <label for="low">Mid</label>
+          <input type="radio" id="high" name="betAmount" value="high" class="radio">
+          <label for="low">High</label>
+        </div>
+        
+        <div class="rounded-container">
+          <label for="rounded">Rounded?</label>
+          <input type="checkbox" id="rounded" name="rounded" value="rounded" class="rounded">
+        </div>
       </div>
 
-      <input type="text" class="amount">
-      <button class="send-bet">Bet!</button>
+      <div class="bet__input-container">
+        <div class="coin-amount-container">
+          <p class="coin-amount"></p>
+          <p class="coin-label">Coins</p>
+        </div>
+        <input type="text" class="bet-amount">
+        <button class="send-bet">Bet!</button>
+      </div>
 
+      <p class="copy">By Lee-Michael D'Souza</p>
   
     </div>
   </div>
