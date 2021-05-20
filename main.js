@@ -7,9 +7,8 @@ if (typeof inputBet !== "number" || inputBet <= 0) {
   
 }
 
-// ------------ ANTE
+// --------------- ANTE
 // randomises ante amount for players to chip in EACH
-
 const radioLow = document.querySelector("#low");
 const radioMid = document.querySelector("#mid");
 const radioHigh = document.querySelector("#high");
@@ -196,5 +195,4 @@ const decideWinner = (mainHand, oneHand, twoHand, threeHand) => {
   pOne.showCards();
   pTwo.showCards();
   pThree.showCards();
-
 }
