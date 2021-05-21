@@ -42,8 +42,10 @@ class Deck {
 }
 
 class Player {
-  constructor(location) {
+  constructor(location, activeCards, deckInst) {
     this.location = location;
+    this.deckInst = deckInst;
+    this.activeCards = activeCards;
     this.playerHand = this.getCards(activeCards);
     // turn off the winner class
     document.querySelector(`.${this.location}`).classList.toggle("winner");
@@ -53,11 +55,8 @@ class Player {
   // Must be called Temp, otherwise activeCards doesn't update globally
   getCards(activeCardsTemp) {
     // deals 5 cards from the activeCards and updates activeCards
-    const playerHandArr = deckInst.dealCards(
-      (deck = activeCards),
-      (cardAmount = 5)
-    );
-    activeCards = playerHandArr[0];
+    const playerHandArr = this.deckInst.dealCards(activeCardsTemp, 5);
+    this.activeCards = playerHandArr[0];
     return playerHandArr[1];
   }
 
