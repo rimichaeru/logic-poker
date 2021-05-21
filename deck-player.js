@@ -48,7 +48,8 @@ class Player {
     this.activeCards = activeCards;
     this.playerHand = this.getCards(activeCards);
     // turn off the winner class
-    document.querySelector(`.${this.location}`).classList.toggle("winner");
+    this.winner = document.querySelector(`.${this.location}`).classList;
+    this.winner.toggle("winner");
     
   }
 

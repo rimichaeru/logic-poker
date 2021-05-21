@@ -20,6 +20,8 @@ class Game {
     this.savedpMain = this.pMain;
     this.pMain.showCards();
 
+    this.winner = null;
+    this.draw = null;
     this.decideWinner();
     
   }
@@ -142,21 +144,56 @@ class Game {
         rank = rank;
       }
 
-      console.log(counts);
-      console.log(rank);
-
+      
       // flush
       const suits = getSuitArr(cards);
       if (suits.every(val => val === suits[0])) {
         rank = [6, Math.max(...numCards)]
       }
-
-      // straight, straight flush
       
+      // straight, straight flush
+      // sorts cards in order
+      let sortCards = (inputArr) => {        
+        let len = inputArr.length;
+        let swapped;
+        do {
+          swapped = false;
+          for (let i = 0; i < len; i++) {
+            if (inputArr[i] > inputArr[i + 1]) {
+              let tmp = inputArr[i];
+              inputArr[i] = inputArr[i + 1];
+              inputArr[i + 1] = tmp;
+              swapped = true;
+            }
+          }
+        } while (swapped);
+        return inputArr;
+      };
 
+      let sortedNumCards = sortCards(numCards);
+      console.log(sortedNumCards);
 
+      let inOrder = true;
+      for (let i = 0; i < sortedNumCards.length-1; i++) {
+        if (!(sortedNumCards[i] == sortedNumCards[i+1]-1)) {
+          inOrder = false;
+          break;
+        }
+      }
+      if (inOrder == true) {
+        if (suits.every(val => val === suits[0])) {
+          // straight flush
+          rank = [9, Math.max(...numCards)];
+        } else {
+          // straight
+          rank = [5, Math.max(...numCards)]
+        } 
+      }
+
+      return rank;
     }
 
+    // test arrays
     const testp1 = [ "7H", "5C", "13D", "12C", "12H" ] // pair
     const testp2 = [ "7H", "12C", "12H", "5C", "13D" ] // pair
     const testtp1 = [ "8H", "8C", "12H", "13C", "13D" ] // two pair
@@ -173,10 +210,270 @@ class Game {
 
     const testfl1 = [ "11C", "12C", "7C", "8C", "5C" ] // flush
     const testfl2 = [ "11C", "12C", "7C", "8C", "5H" ] // flush almost
+    const tests1 = [ "11C", "12S", "10C", "8C", "9H" ] // straight
+    const tests2 = [ "8C", "9C", "10C", "11C", "11H" ] // straight almost
+    const tests3 = [ "11C", "12C", "10C", "8C", "9C" ] // straight flush
 
-    getRanking(testfl1);
+    const rankMain = getRanking([ "8H", "3C", "12H", "13C", "2D" ]);
+    const rankOne = getRanking([ "8H", "3C", "12H", "14C", "2D" ]);
+    const rankTwo = getRanking([ "8H", "3C", "12H", "14C", "2D" ]); 
+    const rankThree = getRanking([ "8H", "3C", "12H", "14C", "2D" ]); 
+    
+    // get hand rankings
+    // const rankMain = getRanking(numMain);
+    // const rankOne = getRanking(numOne);
+    // const rankTwo = getRanking(numTwo);
+    // const rankThree = getRanking(numThree);
+    
+    const rankAll = [rankMain, rankOne, rankTwo, rankThree];
+    const rankArray = [rankMain[0], rankOne[0], rankTwo[0], rankThree[0]];
+    const rankArrayConflict = [rankMain[1], rankOne[1], rankTwo[1], rankThree[1]];
+    const maxRank = Math.max(...rankArray);
 
-    // toggle winner
+    const rankWinnerIndexes = rankArray.filter((playerRank) => {
+      return maxRank == playerRank;
+    })
+
+    const sendWinner = (indexOfWinner) => {
+      switch (indexOfWinner) {
+        case 0:
+          this.winner = "main";
+          this.pMain.winner.toggle("winner");
+          break;
+
+        case 1:
+          this.winner = "top";
+          this.pOne.winner.toggle("winner");
+          break;
+
+        case 2:
+          this.winner = "left";
+          this.pTwo.winner.toggle("winner");
+          break;
+          
+        case 3:
+          this.winner = "right";
+          this.pThree.winner.toggle("winner");
+          break;
+      
+        default:
+          break;
+      }
+    }
+
+    // no conflict in winner rank
+    if (rankWinnerIndexes.length == 1) {
+      sendWinner(rankArray.indexOf(maxRank));
+    } else if (rankWinnerIndexes.length == 2) {
+      // conflict in winner rank, 2 winners
+      const firstWinner = rankArray.indexOf(maxRank);
+      const secondWinner = rankArray.indexOf(maxRank, firstWinner+1)
+      const winnerIndexes = [firstWinner, secondWinner];
+
+      let winnerRanks = [];
+      for (let i = 0; i < winnerIndexes.length; i++) {
+        if (winnerIndexes[i] == 0) {
+          winnerRanks.push(rankMain);
+        } else if (winnerIndexes[i] == 1) {
+          winnerRanks.push(rankOne);
+        } else if (winnerIndexes[i] == 2) {
+          winnerRanks.push(rankTwo);
+        } else if (winnerIndexes[i] == 3) {
+          winnerRanks.push(rankThree);
+        } else {
+          winnerRanks = winnerRanks;
+        }
+      }
+
+      // compare the two winners' second item
+      // slightly different if two pairs
+      if (winnerRanks[0][0] == 3) {
+        // two pair
+        if (winnerRanks[0][2] > winnerRanks[1][2]) {
+          // index 0 of rankWinnerIndexes wins
+          sendWinner(firstWinner);
+        } else if (winnerRanks[1][2] > winnerRanks[0][2]) {
+          sendWinner(secondWinner);
+        } else {
+          console.log("2 two pair draw");
+          // draw, send draw to indicate who to split between
+          this.draw = winnerIndexes;
+        }
+      } else {
+        if (winnerRanks[0][1] > winnerRanks[1][1]) {
+          // index 0 of rankWinnerIndexes wins
+          sendWinner(firstWinner);
+        } else if (winnerRanks[1][1] > winnerRanks[0][1]) {
+          sendWinner(secondWinner);
+        } else {
+          console.log("2 single draw");
+          // draw, send draw to indicate who to split between
+          let mainDraw = false;
+          if (rankArray[0] == winnerRanks[0][0] && rankArrayConflict[0] == winnerRanks[0][1]) {
+            mainDraw = true;
+          }
+          this.draw = mainDraw;
+          console.log("this.draw", this.draw);
+        }
+      }
+
+    } else if (rankWinnerIndexes.length == 3) {
+      // conflict in winner rank, 2 winners
+      const firstWinner = rankArray.indexOf(maxRank);
+      const secondWinner = rankArray.indexOf(maxRank, firstWinner+1)
+      const thirdWinner = rankArray.indexOf(maxRank, secondWinner+1)
+      const winnerIndexes = [firstWinner, secondWinner, thirdWinner];
+
+      let winnerRanks = [];
+      for (let i = 0; i < winnerIndexes.length; i++) {
+        if (winnerIndexes[i] == 0) {
+          winnerRanks.push(rankMain);
+        } else if (winnerIndexes[i] == 1) {
+          winnerRanks.push(rankOne);
+        } else if (winnerIndexes[i] == 2) {
+          winnerRanks.push(rankTwo);
+        } else if (winnerIndexes[i] == 3) {
+          winnerRanks.push(rankThree);
+        } else {
+          winnerRanks = winnerRanks;
+        }
+      }
+
+      // compare the three winners' second item
+      // slightly different if two pairs
+      if (winnerRanks[0][0] == 3) {
+        // two pair
+        if (winnerRanks[0][2] > winnerRanks[1][2] && winnerRanks[0][2] > winnerRanks[2][2]) {
+          // index 0 of rankWinnerIndexes wins
+          sendWinner(firstWinner);
+        } else if (winnerRanks[1][2] > winnerRanks[0][2] && winnerRanks[1][2] > winnerRanks[2][2]) {
+          sendWinner(secondWinner);
+        } else if (winnerRanks[2][2] > winnerRanks[0][2] && winnerRanks[2][2] > winnerRanks[1][2]) {
+          sendWinner(thirdWinner);
+        } else {
+          console.log("3 two pair draw");
+          // draw, send draw to indicate who to split between
+          console.log("here");
+          let hcArr = [winnerRanks[0][2], winnerRanks[1][2], winnerRanks[2][2]];
+          console.log(hcArr);
+          let drawWinners = [];
+          let index = 0;
+          for (let i = 0; i < rankAll.length; i++) {
+            if (rankAll[i][0] == winnerRanks[0][0] && rankAll[i][1] == winnerRanks[0][1] && rankAll[i][2] == winnerRanks[0][2]) {
+              drawWinners.push(rankAll.indexOf(hcArr[i], index))
+              index++
+            }
+          }
+          this.draw = drawWinners;
+          console.log("this.draw", this.draw);
+        }
+      } else {
+        if (winnerRanks[0][1] > winnerRanks[1][1] && winnerRanks[0][1] > winnerRanks[2][1]) {
+          // index 0 of rankWinnerIndexes wins
+          sendWinner(firstWinner);
+        } else if (winnerRanks[1][1] > winnerRanks[0][1] && winnerRanks[1][1] > winnerRanks[2][1]) {
+          sendWinner(secondWinner);
+        } else if (winnerRanks[2][1] > winnerRanks[0][1] && winnerRanks[2][1] > winnerRanks[1][1]) {
+          sendWinner(thirdWinner);
+        } else {
+          console.log("3 single draw");
+          // draw, send draw to indicate who to split between
+          let drawWinners = [];
+          let index = 0;
+          console.log(rankAll[0][0], winnerRanks[0][0], rankAll[0][1], winnerRanks[0][1]);
+          for (let i = 0; i < rankAll.length; i++) {
+            if (rankAll[i][0] == winnerRanks[0][0] && rankAll[i][1] == winnerRanks[0][1]) {
+              drawWinners.push(rankArrayConflict.indexOf(rankArrayConflict[i], index))
+              index++
+            }
+          }
+          this.draw = drawWinners;
+          console.log("this.draw", this.draw);
+        }
+      } 
+    } else if (rankWinnerIndexes.length == 4) {
+      // conflict in winner rank, 2 winners
+      const firstWinner = rankArray.indexOf(maxRank);
+      const secondWinner = rankArray.indexOf(maxRank, firstWinner+1);
+      const thirdWinner = rankArray.indexOf(maxRank, secondWinner+1);
+      const fourthWinner = rankArray.indexOf(maxRank, thirdWinner+1);
+      const winnerIndexes = [firstWinner, secondWinner, thirdWinner, fourthWinner];
+
+      let winnerRanks = [];
+      for (let i = 0; i < winnerIndexes.length; i++) {
+        if (winnerIndexes[i] == 0) {
+          winnerRanks.push(rankMain);
+        } else if (winnerIndexes[i] == 1) {
+          winnerRanks.push(rankOne);
+        } else if (winnerIndexes[i] == 2) {
+          winnerRanks.push(rankTwo);
+        } else if (winnerIndexes[i] == 3) {
+          winnerRanks.push(rankThree);
+        } else {
+          winnerRanks = winnerRanks;
+        }
+      }
+
+      // compare the four winners' second item
+      // slightly different if two pairs
+      if (winnerRanks[0][0] == 3) {
+        // two pair
+        if (winnerRanks[0][2] > winnerRanks[1][2] && winnerRanks[0][2] > winnerRanks[2][2] && winnerRanks[0][2] > winnerRanks[3][2]) {
+          // index 0 of rankWinnerIndexes wins
+          sendWinner(firstWinner);
+        } else if (winnerRanks[1][2] > winnerRanks[0][2] && winnerRanks[1][2] > winnerRanks[2][2] && winnerRanks[1][2] > winnerRanks[3][2]) {
+          sendWinner(secondWinner);
+        } else if (winnerRanks[2][2] > winnerRanks[0][2] && winnerRanks[2][2] > winnerRanks[1][2] && winnerRanks[2][2] > winnerRanks[3][2]) {
+          sendWinner(thirdWinner);
+        } else if (winnerRanks[3][2] > winnerRanks[0][2] && winnerRanks[3][2] > winnerRanks[1][2] && winnerRanks[3][2] > winnerRanks[2][2]) {
+          sendWinner(fourthWinner);
+        } else {
+          console.log("4 two pair draw");
+          // draw, send draw to indicate who to split between
+          let hcArr = [rankMain[2], rankOne[2], rankTwo[2], rankThree[2]];
+          console.log(hcArr);
+          let drawWinners = [];
+          let index = 0;
+          for (let i = 0; i < rankAll.length; i++) {
+            if (rankAll[i][0] == winnerRanks[0][0] && rankAll[i][1] == winnerRanks[0][1] && rankAll[i][2] == winnerRanks[0][2]) {
+              drawWinners.push(hcArr.indexOf(hcArr[i], index))
+              index++
+            }
+          }
+          this.draw = drawWinners;
+          console.log("this.draw", this.draw);
+        }
+      } else {
+        if (winnerRanks[0][1] > winnerRanks[1][1] && winnerRanks[0][1] > winnerRanks[2][1] && winnerRanks[0][1] > winnerRanks[3][1]) {
+          // index 0 of rankWinnerIndexes wins
+          sendWinner(firstWinner);
+        } else if (winnerRanks[1][1] > winnerRanks[0][1] && winnerRanks[1][1] > winnerRanks[2][1] && winnerRanks[1][1] > winnerRanks[3][1]) {
+          sendWinner(secondWinner);
+        } else if (winnerRanks[2][1] > winnerRanks[0][1] && winnerRanks[2][1] > winnerRanks[1][1] && winnerRanks[2][1] > winnerRanks[3][1]) {
+          sendWinner(thirdWinner);
+        } else if (winnerRanks[3][1] > winnerRanks[0][1] && winnerRanks[3][1] > winnerRanks[1][1] && winnerRanks[3][1] > winnerRanks[2][1]) {
+          sendWinner(fourthWinner);
+        } else {
+          console.log("4 single draw");
+          // draw, send draw to indicate who to split between
+          let drawWinners = [];
+          let index = 0;
+          for (let i = 0; i < rankAll.length; i++) {
+            if (rankAll[i][0] == winnerRanks[0][0] && rankAll[i][1] == winnerRanks[0][1]) {
+              drawWinners.push(rankArrayConflict.indexOf(rankArrayConflict[i], index))
+              index++
+            }
+          }
+          this.draw = drawWinners;
+          console.log("this.draw", this.draw);
+        }
+      }
+    }
+
+
+    console.log("rankArr", rankArray);
+    console.log("rankWinInd", rankWinnerIndexes);
+    
     // give/take coins
 
   }
