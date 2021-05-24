@@ -1,0 +1,26 @@
+{
+  "name": "logic-poker",
+  "version": "1.0.0",
+  "description": "A condensed, yet critically different, version of poker based on bet sizing judgement.",
+  "main": "main.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rimichaeru/logic-poker.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rimichaeru/logic-poker/issues"
+  },
+  "homepage": "https://github.com/rimichaeru/logic-poker#readme",
+  "devDependencies": {
+    "jest": "^26.6.3"
+  },
+  "dependencies": {
+    "@babel/preset-env": "^7.14.2"
+  }
+}

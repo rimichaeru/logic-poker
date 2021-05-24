@@ -1,4 +1,4 @@
-class Deck {
+export class Deck {
   constructor() {
     this.deck = this.create();
   }
@@ -41,7 +41,7 @@ class Deck {
   };
 }
 
-class Player {
+export class Player {
   constructor(location, activeCards, deckInst) {
     this.location = location;
     this.deckInst = deckInst;

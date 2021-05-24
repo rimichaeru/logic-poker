@@ -1,3 +1,5 @@
+import {Deck, Player} from "./deck-player.js"
+
 class Game {
   constructor() {
     // init held coins
