@@ -5,6 +5,12 @@
   box-sizing: border-box;
 }
 
+body {
+  display: flex;
+  justify-content: center;
+  background-color: rgba(27, 27, 27, 0.87);
+}
+
 button {
   padding: 0 5px;
   background-color: rgba(125, 255, 255, 0.774);
@@ -217,9 +223,9 @@ button:hover {
 }
 
 .winner {
-  border: 4px solid rgba(192, 221, 30, 0.884);
+  border: 4px solid rgba(205, 219, 0, 0.884);
   border-radius: 10px;
-  background-color: rgba(192, 221, 30, 0.884);
+  background-color: rgba(206, 209, 0, 0.884);
 }
 
 .rotate-right > * {
@@ -232,4 +238,110 @@ button:hover {
 
 .mainPlayer > * {
   transform: scale(1.4);
+}
+
+@media screen and (min-width: 480px) {
+  .app {
+    width: 70vw;
+    grid-template-rows: 55% 24% 20%;
+  }
+
+  .board {
+    height: auto;
+  }
+
+  .mainPlayer > * {
+    transform: scale(1.8);
+    margin: 0 8px;
+  }
+
+  .topPlayer {
+    gap: 10px;
+  }
+  .topPlayer > * {
+    transform: scale(1.2);
+  }
+
+  .rotate-right {
+    row-gap: 4px;
+  }
+  .rotate-right > * {
+    transform: rotate(90deg) scale(1.2);
+  }
+
+  .rotate-left {
+    row-gap: 4px;
+  }
+  .rotate-left > * {
+    transform: rotate(270deg) scale(1.2);
+  }
+
+  .card-grid {
+    padding: 20px;
+    padding-top: 8%;
+    padding-left: 8%;
+    gap: 0;
+  }
+  .card-grid > * {
+    transform: scale(1.4);
+  }
+}
+@media screen and (min-width: 900px) {
+  .card-grid {
+    justify-self: center;
+    padding-top: 3%;
+    padding-left: 8%;
+    gap: 0;
+    row-gap: 14px;
+    width: 90%;
+  }
+  .card-grid > * {
+    transform: scale(1.4);
+  }
+}
+@media screen and (min-width: 1400px) {
+  .app {
+    width: 60vw;
+    grid-template-rows: 55% 24% 20%;
+  }
+
+  .mainPlayer {
+    gap: 20px;
+  }
+  .mainPlayer > * {
+    transform: scale(2);
+    margin: 0 8px;
+  }
+
+  .topPlayer {
+    gap: 20px;
+  }
+  .topPlayer > * {
+    transform: scale(1.6);
+  }
+
+  .rotate-right {
+    row-gap: 12px;
+  }
+  .rotate-right > * {
+    transform: rotate(90deg) scale(1.5);
+  }
+
+  .rotate-left {
+    row-gap: 12px;
+  }
+  .rotate-left > * {
+    transform: rotate(270deg) scale(1.5);
+  }
+
+  .card-grid {
+    justify-self: center;
+    padding-top: 3%;
+    padding-left: 8%;
+    gap: 0;
+    width: 80%;
+  }
+  .card-grid > * {
+    transform: scale(1.8);
+  }
 }
