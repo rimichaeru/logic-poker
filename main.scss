@@ -5,22 +5,35 @@
   box-sizing: border-box;
 }
 
+button {
+  padding: 0 5px;
+  background-color: rgba(125, 255, 255, 0.774);
+
+  &:hover {
+    background-color: rgba(216, 33, 33, 0.836);
+  }
+}
+
 .app {
   display: grid;
   height: 100vh;
   grid-template-columns: 1fr;
   grid-template-rows: 2fr 1fr 1fr;
+  row-gap: 5px;
   padding: 4px;
+  background-color: rgba(19, 19, 19, 0.856);
 }
 
 .board {
   border: 3px solid black;
   display: grid;
-  grid-template-rows: 1fr 2fr 1fr;
+  grid-template-rows: 20% 50% 30%;
   background-color: green;
   border-radius: 20px;
   padding: 10px;
-  box-shadow: 2px 4px rgba(20, 20, 20, 0.753);
+  box-shadow: 2px 4px rgba(17, 17, 17, 0.884);
+  height: 420px;
+  background-image: url(assets/tables_play_area.png);
 
   &__top-area {
     display: flex;
@@ -57,13 +70,13 @@
     &__mid {
       display: flex;
       flex-direction: column;
-      row-gap: 16px;
 
       .coin-container {
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        padding: 10px;
       }
       
       &__coins {
@@ -72,7 +85,6 @@
         color: gold;
         -webkit-text-stroke: 1px gold;
         text-shadow: 2px 2px rgba(68, 68, 68, 0.733);
-        margin-bottom: 8px;
       }
 
       &__img {
@@ -127,7 +139,12 @@
   grid-template-columns: repeat(8, 1fr);
   grid-template-rows: 1fr 1fr;
   padding: 10px;
-  gap: 6px;
+  gap: 2px;
+  row-gap: 4px;
+  border: 1px solid rgb(0, 0, 0);
+  background-image: url(assets/tables_card_area.png);
+  border-radius: 10px;
+  box-shadow: 2px 4px rgba(15, 15, 15, 0.945);
 
 }
 
@@ -138,7 +155,11 @@
   flex-direction: column;
   justify-content: space-between;
   padding: 6px;
-
+  background-image: url(assets/tables_bet_area.png);
+  border-radius: 10px;
+  box-shadow: 2px 2px rgba(46, 46, 46, 0.795);
+  border: 3px solid rgb(0, 0, 0);
+  color: rgb(211, 216, 208);
   
   &__settings {
     .radio-buttons {
@@ -159,9 +180,10 @@
     justify-content: center;
     margin-top: -2%;
     gap: 10px;
+    padding: 16px 0;
 
     .coin-amount {
-      color: green;
+      color: rgb(0, 206, 0);
       font-size: 20px;
       text-align: center;
       -webkit-text-stroke: 0.6px;
@@ -174,6 +196,14 @@
       width: 80px;
       font-size: 30px;
       text-align: center;
+    }
+
+    .send-bet {
+      background-color: rgba(23, 253, 23, 0.719);
+
+      &:hover {
+        background-color: rgba(216, 33, 33, 0.836);
+      }
     }
   }
 
@@ -190,7 +220,7 @@
   width: 36px;
   height: 50px;
   border-radius: 4px;
-  box-shadow: 2px 3px rgba(63, 63, 63, 0.521);
+  box-shadow: 2px 3px rgba(27, 27, 27, 0.781);
   background-image: url(assets/cards_back.png);
   background-color: brown;
   background-size: cover;
@@ -210,11 +240,6 @@
   
 }
 
-
-// cards are hidden
-.hidden {
-  //background-image: url(assets/cards_back.png);
-}
 
 .heart {
   background-image: url(assets/cards_heart.png);

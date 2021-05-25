@@ -4,19 +4,20 @@ class Game {
   constructor() {
     // init held coins
     this.heldCoins = 0;
-    this.setCoins();
+    this.setCoins(3000);
 
     this.savedCards = [];
-    // set ante
-    this.setAnte()
 
+    // set ante
     // init deck and players
+    this.pot = 0;
     this.deck = null;
     this.pMain = null;
     this.pOne = null;
     this.pTwo = null;
     this.pThree = null;
-    this.newDeal()
+
+    this.newRound();
 
     // Saving backup of main player's cards
     this.savedpMain = this.pMain;
@@ -24,8 +25,92 @@ class Game {
 
     this.winner = null;
     this.draw = null;
-    this.decideWinner();
+
+    // bet event listener
+    this.initButton();
     
+  }
+
+  initButton() {
+    document.querySelector(".send-bet").addEventListener("click", () => {
+      this.betAndShow();
+    });
+
+    document.querySelector(".next-round").addEventListener("click", () => {
+      this.savedCards = [];
+
+      this.deck = null;
+      this.pMain.winner.toggle("winner", true);
+      this.pOne.winner.toggle("winner", true);
+      this.pTwo.winner.toggle("winner", true);
+      this.pThree.winner.toggle("winner", true);
+      
+      this.pMain.hideCards();
+      this.pOne.hideCards();
+      this.pTwo.hideCards();
+      this.pThree.hideCards();
+
+      const cardGridCards = document.querySelectorAll(".card-grid .card");
+    
+      for (let i = 0; i < this.savedCards.length; i++) {
+        cardGridCards[i].id = "";
+      
+        if (this.savedCards[i][this.savedCards[i].length - 1] == "H") {
+          cardGridCards[i].classList = "card hidden";
+        } else if (this.savedCards[i][this.savedCards[i].length - 1] == "C") {
+          cardGridCards[i].classList = "card hidden";
+        } else if (this.savedCards[i][this.savedCards[i].length - 1] == "S") {
+          cardGridCards[i].classList = "card hidden";
+        } else {
+          cardGridCards[i].classList = "card hidden";
+        }
+      
+        cardGridCards[i].innerHTML += `<p class="u"></p><div class="l"></div>`;
+        cardGridCards[i].querySelector(".u").textContent = "";
+      }
+
+
+
+      this.newRound();
+
+      // Saving backup of main player's cards
+      this.savedpMain = this.pMain;
+      this.pMain.showCards();
+
+      this.winner = null;
+      this.draw = null;
+    });
+  }
+
+  newRound() {
+    this.setAnte();
+    this.newDeal();
+  }
+
+  // do bet
+
+  betAndShow() {
+    // remove bet amount from held coins
+    const betAmount = document.querySelector(".bet-amount").value;
+    this.setCoins(this.heldCoins-=betAmount);
+    // add bet amount to pot from all players
+    this.pot += betAmount*4;
+
+    this.decideWinner();
+
+    const text = document.querySelector('.board__mid-area__mid__coins');
+    text.textContent = `Reward: ${this.pot} coins!`;
+
+    // add to main player
+    if (this.winner == "main") {
+      console.log("Main has won!");
+      this.setCoins(this.heldCoins+=this.pot);
+    } else if (this.draw.includes(0)) {
+      console.log("draw with main player!");
+      const splitReward = Math.floor(this.pot / this.draw.length)
+      this.setCoins(this.heldCoins+=splitReward);
+      console.log("splitReward = ", splitReward);
+    }
   }
 
   decideWinner() {
@@ -195,72 +280,124 @@ class Game {
       return rank;
     }
 
+    // ------------------------------------------------ TESTING
     // test arrays
-    const testp1 = [ "7H", "5C", "13D", "12C", "12H" ] // pair
-    const testp2 = [ "7H", "12C", "12H", "5C", "13D" ] // pair
-    const testtp1 = [ "8H", "8C", "12H", "13C", "13D" ] // two pair
-    const testtp2 = [ "7H", "12C", "12H", "5C", "5D" ] // two pair
-    const testtp3 = [ "5H", "7C", "12H", "7C", "5D" ] // two pair
-    const testt1 = [ "7H", "5C", "12D", "12C", "12H" ] // trip
-    const testt2 = [ "7H", "12D", "12C", "12H", "5C" ] // trip
-    const testt3 = [ "7H", "12D", "12C", "5C", "12H" ] // trip
-    const testq1 = [ "7H", "12D", "12C", "12S", "12H" ] // quad
-    const testq2 = [ "12D", "12C", "12S", "12H", "7H" ] // quad
-    const testfh1 = [ "7C", "12C", "12S", "12H", "7H" ] // fh
-    const testfh2 = [ "12D", "12C", "12S", "7C", "7H" ] // fh
-    const testfh3 = [ "12D", "12C", "7C", "12H", "7H" ] // fh
+    // const testp1 = [ "7H", "5C", "13D", "12C", "12H" ] // pair
+    // const testp2 = [ "7H", "12C", "12H", "5C", "13D" ] // pair
+    // const testtp1 = [ "8H", "8C", "12H", "13C", "13D" ] // two pair
+    // const testtp2 = [ "7H", "12C", "12H", "5C", "5D" ] // two pair
+    // const testtp3 = [ "5H", "7C", "12H", "7C", "5D" ] // two pair
+    // const testt1 = [ "7H", "5C", "12D", "12C", "12H" ] // trip
+    // const testt2 = [ "7H", "12D", "12C", "12H", "5C" ] // trip
+    // const testt3 = [ "7H", "12D", "12C", "5C", "12H" ] // trip
+    // const testq1 = [ "7H", "12D", "12C", "12S", "12H" ] // quad
+    // const testq2 = [ "12D", "12C", "12S", "12H", "7H" ] // quad
+    // const testfh1 = [ "7C", "12C", "12S", "12H", "7H" ] // fh
+    // const testfh2 = [ "12D", "12C", "12S", "7C", "7H" ] // fh
+    // const testfh3 = [ "12D", "12C", "7C", "12H", "7H" ] // fh
 
-    const testfl1 = [ "11C", "12C", "7C", "8C", "5C" ] // flush
-    const testfl2 = [ "11C", "12C", "7C", "8C", "5H" ] // flush almost
-    const tests1 = [ "11C", "12S", "10C", "8C", "9H" ] // straight
-    const tests2 = [ "8C", "9C", "10C", "11C", "11H" ] // straight almost
-    const tests3 = [ "11C", "12C", "10C", "8C", "9C" ] // straight flush
+    // const testfl1 = [ "11C", "12C", "7C", "8C", "5C" ] // flush
+    // const testfl2 = [ "11C", "12C", "7C", "8C", "5H" ] // flush almost
+    // const tests1 = [ "11C", "12S", "10C", "8C", "9H" ] // straight
+    // const tests2 = [ "8C", "9C", "10C", "11C", "11H" ] // straight almost
+    // const tests3 = [ "11C", "12C", "10C", "8C", "9C" ] // straight flush
 
-    const rankMain = getRanking([ "8H", "3C", "12H", "13C", "2D" ]);
-    const rankOne = getRanking([ "8H", "3C", "12H", "14C", "2D" ]);
-    const rankTwo = getRanking([ "8H", "3C", "12H", "14C", "2D" ]); 
-    const rankThree = getRanking([ "8H", "3C", "12H", "14C", "2D" ]); 
+    // const rankMain = getRanking([ "12D", "12C", "11S", "12H", "7H" ]);
+    // const rankOne = getRanking([ "12D", "12C", "12S", "12H", "7H" ]);
+    // const rankTwo = getRanking([ "12D", "12C", "12S", "12H", "7H" ]); 
+    // const rankThree = getRanking([ "12D", "12C", "11S", "12H", "7H" ]); 
     
+    // ----------------------------------------------------------------------------- 
+    // REAL HAND RANKINGS, not test
     // get hand rankings
-    // const rankMain = getRanking(numMain);
-    // const rankOne = getRanking(numOne);
-    // const rankTwo = getRanking(numTwo);
-    // const rankThree = getRanking(numThree);
+    const rankMain = getRanking(numMain);
+    const rankOne = getRanking(numOne);
+    const rankTwo = getRanking(numTwo);
+    const rankThree = getRanking(numThree);
+    
+    // ----------------------------------------------------------------------------- 
     
     const rankAll = [rankMain, rankOne, rankTwo, rankThree];
     const rankArray = [rankMain[0], rankOne[0], rankTwo[0], rankThree[0]];
     const rankArrayConflict = [rankMain[1], rankOne[1], rankTwo[1], rankThree[1]];
     const maxRank = Math.max(...rankArray);
+    const maxRankConflict = Math.max(...rankArrayConflict);
+    const winMax = [maxRank, maxRankConflict]
+
+    console.log("winMax:", winMax);
 
     const rankWinnerIndexes = rankArray.filter((playerRank) => {
       return maxRank == playerRank;
     })
 
     const sendWinner = (indexOfWinner) => {
+      const text = document.querySelector('.board__mid-area__mid__text');
+      text.textContent = "";
       switch (indexOfWinner) {
         case 0:
           this.winner = "main";
           this.pMain.winner.toggle("winner");
+          text.textContent = "You have won!";
           break;
 
         case 1:
           this.winner = "top";
           this.pOne.winner.toggle("winner");
+          text.textContent = "Opposite player has won!";
           break;
 
         case 2:
           this.winner = "left";
           this.pTwo.winner.toggle("winner");
+          text.textContent = "Left player has won!";
           break;
           
         case 3:
           this.winner = "right";
           this.pThree.winner.toggle("winner");
+          text.textContent = "Right player has won!";
           break;
       
         default:
           break;
       }
+    }
+
+    const sendDraw = () => {
+      const text = document.querySelector('.board__mid-area__mid__text');
+      text.textContent = "";
+      this.draw.forEach((indexOfWinner) => {
+        switch (indexOfWinner) {
+          case 0:
+            this.winner = "main";
+            this.pMain.winner.toggle("winner");
+            text.textContent += "You, "
+            break;
+  
+          case 1:
+            this.winner = "top";
+            this.pOne.winner.toggle("winner");
+            text.textContent += "Opposite player, "
+            break;
+  
+          case 2:
+            this.winner = "left";
+            this.pTwo.winner.toggle("winner");
+            text.textContent += "Left player, "
+            break;
+            
+          case 3:
+            this.winner = "right";
+            this.pThree.winner.toggle("winner");
+            text.textContent += "Right player, "
+            break;
+        
+          default:
+            break;
+        }
+      })
+      text.textContent += "have drawn!"
+      
     }
 
     // no conflict in winner rank
@@ -297,9 +434,15 @@ class Game {
         } else if (winnerRanks[1][2] > winnerRanks[0][2]) {
           sendWinner(secondWinner);
         } else {
-          console.log("2 two pair draw");
           // draw, send draw to indicate who to split between
-          this.draw = winnerIndexes;
+          let drawWinners = [];
+          for (let i = 0; i < rankAll.length; i++) {
+            if (rankAll[i][0] == winMax[0] && rankAll[i][1] == winMax[1] && rankAll[i][2] == winnerRanks[0][2]) {
+              drawWinners.push(i);
+            }
+          }
+          this.draw = drawWinners;
+          sendDraw();
         }
       } else {
         if (winnerRanks[0][1] > winnerRanks[1][1]) {
@@ -308,14 +451,15 @@ class Game {
         } else if (winnerRanks[1][1] > winnerRanks[0][1]) {
           sendWinner(secondWinner);
         } else {
-          console.log("2 single draw");
           // draw, send draw to indicate who to split between
-          let mainDraw = false;
-          if (rankArray[0] == winnerRanks[0][0] && rankArrayConflict[0] == winnerRanks[0][1]) {
-            mainDraw = true;
+          let drawWinners = [];
+          for (let i = 0; i < rankAll.length; i++) {
+            if (rankAll[i][0] == winMax[0] && rankAll[i][1] == winMax[1]) {
+              drawWinners.push(i);
+            }
           }
-          this.draw = mainDraw;
-          console.log("this.draw", this.draw);
+          this.draw = drawWinners;
+          sendDraw();
         }
       }
 
@@ -353,21 +497,17 @@ class Game {
         } else if (winnerRanks[2][2] > winnerRanks[0][2] && winnerRanks[2][2] > winnerRanks[1][2]) {
           sendWinner(thirdWinner);
         } else {
-          console.log("3 two pair draw");
           // draw, send draw to indicate who to split between
-          console.log("here");
           let hcArr = [winnerRanks[0][2], winnerRanks[1][2], winnerRanks[2][2]];
           console.log(hcArr);
           let drawWinners = [];
-          let index = 0;
           for (let i = 0; i < rankAll.length; i++) {
-            if (rankAll[i][0] == winnerRanks[0][0] && rankAll[i][1] == winnerRanks[0][1] && rankAll[i][2] == winnerRanks[0][2]) {
-              drawWinners.push(rankAll.indexOf(hcArr[i], index))
-              index++
+            if (rankAll[i][0] == winMax[0] && rankAll[i][1] == winMax[1] && rankAll[i][2] == winnerRanks[0][2]) {
+              drawWinners.push(i);
             }
           }
           this.draw = drawWinners;
-          console.log("this.draw", this.draw);
+          sendDraw();
         }
       } else {
         if (winnerRanks[0][1] > winnerRanks[1][1] && winnerRanks[0][1] > winnerRanks[2][1]) {
@@ -378,19 +518,15 @@ class Game {
         } else if (winnerRanks[2][1] > winnerRanks[0][1] && winnerRanks[2][1] > winnerRanks[1][1]) {
           sendWinner(thirdWinner);
         } else {
-          console.log("3 single draw");
           // draw, send draw to indicate who to split between
           let drawWinners = [];
-          let index = 0;
-          console.log(rankAll[0][0], winnerRanks[0][0], rankAll[0][1], winnerRanks[0][1]);
           for (let i = 0; i < rankAll.length; i++) {
-            if (rankAll[i][0] == winnerRanks[0][0] && rankAll[i][1] == winnerRanks[0][1]) {
-              drawWinners.push(rankArrayConflict.indexOf(rankArrayConflict[i], index))
-              index++
+            if (rankAll[i][0] == winMax[0] && rankAll[i][1] == winMax[1]) {
+              drawWinners.push(i);
             }
           }
           this.draw = drawWinners;
-          console.log("this.draw", this.draw);
+          sendDraw();
         }
       } 
     } else if (rankWinnerIndexes.length == 4) {
@@ -430,20 +566,15 @@ class Game {
         } else if (winnerRanks[3][2] > winnerRanks[0][2] && winnerRanks[3][2] > winnerRanks[1][2] && winnerRanks[3][2] > winnerRanks[2][2]) {
           sendWinner(fourthWinner);
         } else {
-          console.log("4 two pair draw");
           // draw, send draw to indicate who to split between
-          let hcArr = [rankMain[2], rankOne[2], rankTwo[2], rankThree[2]];
-          console.log(hcArr);
           let drawWinners = [];
-          let index = 0;
           for (let i = 0; i < rankAll.length; i++) {
-            if (rankAll[i][0] == winnerRanks[0][0] && rankAll[i][1] == winnerRanks[0][1] && rankAll[i][2] == winnerRanks[0][2]) {
-              drawWinners.push(hcArr.indexOf(hcArr[i], index))
-              index++
+            if (rankAll[i][0] == winMax[0] && rankAll[i][1] == winMax[1] && rankAll[i][2] == winnerRanks[0][2]) {
+              drawWinners.push(i)
             }
           }
           this.draw = drawWinners;
-          console.log("this.draw", this.draw);
+          sendDraw();
         }
       } else {
         if (winnerRanks[0][1] > winnerRanks[1][1] && winnerRanks[0][1] > winnerRanks[2][1] && winnerRanks[0][1] > winnerRanks[3][1]) {
@@ -456,18 +587,15 @@ class Game {
         } else if (winnerRanks[3][1] > winnerRanks[0][1] && winnerRanks[3][1] > winnerRanks[1][1] && winnerRanks[3][1] > winnerRanks[2][1]) {
           sendWinner(fourthWinner);
         } else {
-          console.log("4 single draw");
           // draw, send draw to indicate who to split between
           let drawWinners = [];
-          let index = 0;
           for (let i = 0; i < rankAll.length; i++) {
-            if (rankAll[i][0] == winnerRanks[0][0] && rankAll[i][1] == winnerRanks[0][1]) {
-              drawWinners.push(rankArrayConflict.indexOf(rankArrayConflict[i], index))
-              index++
+            if (rankAll[i][0] == winMax[0] && rankAll[i][1] == winMax[1]) {
+              drawWinners.push(i);
             }
           }
           this.draw = drawWinners;
-          console.log("this.draw", this.draw);
+          sendDraw();
         }
       }
     }
@@ -480,8 +608,8 @@ class Game {
 
   }
 
-  setCoins() {
-    this.heldCoins = 3000;
+  setCoins(coins) {
+    this.heldCoins = coins;
     const displayedCoins = document.querySelector(".coin-amount");
     displayedCoins.textContent = this.heldCoins;
   }
@@ -527,9 +655,11 @@ class Game {
     const coins = document.querySelector('.board__mid-area__mid__coins');
     const text = document.querySelector('.board__mid-area__mid__text');
     text.textContent = `Each player covers the ${ante} coin ante.`
-    coins.textContent = ante * 4;
-  }
+    this.pot = ante * 4;
+    coins.textContent = this.pot;
 
+    this.setCoins(this.heldCoins-=ante);
+  }
 
   newDeal() {
     // creates a fresh deck in .deck
@@ -657,14 +787,6 @@ class Game {
 
 }
 
-
-// ---------------- HELD COINS
-// const inputBet = Number(document.querySelector('.bet-amount').textContent);
-// if (typeof inputBet !== "number" || inputBet <= 0) {
-  
-// }
-
-// Currently, hidden class does nothing, is it needed?
 
 
 const play = new Game();

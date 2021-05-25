@@ -84,4 +84,25 @@ export class Player {
       );
     }
   }
+
+  hideCards() {
+    const playerCards = document.querySelectorAll(`.${this.location} .card`);
+
+    for (let i = 0; i < this.playerHand.length; i++) {
+      playerCards[i].id = "";
+
+      if (this.playerHand[i][this.playerHand[i].length - 1] == "H") {
+        playerCards[i].classList = "card hidden";
+      } else if (this.playerHand[i][this.playerHand[i].length - 1] == "C") {
+        playerCards[i].classList = "card hidden";
+      } else if (this.playerHand[i][this.playerHand[i].length - 1] == "S") {
+        playerCards[i].classList = "card hidden";
+      } else {
+        playerCards[i].classList = "card hidden";
+      }
+
+      playerCards[i].innerHTML += `<p class="u"></p><div class="l"></div>`;
+      playerCards[i].querySelector(".u").textContent = "";
+    }
+  }
 }
