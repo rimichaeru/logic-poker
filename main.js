@@ -2,6 +2,10 @@ import {Deck, Player} from "./deck-player.js"
 
 class Game {
   constructor() {
+    this.roundCount = 0;
+    this.hasBet = false;
+    this.isNewRound = true;
+
     // init held coins
     this.heldCoins = 0;
     this.setCoins(3000);
@@ -33,11 +37,17 @@ class Game {
 
   initButton() {
     document.querySelector(".send-bet").addEventListener("click", () => {
+      if (this.hasBet == true) {
+        return;
+      }
       this.betAndShow();
+      
     });
 
     document.querySelector(".next-round").addEventListener("click", () => {
-      this.savedCards = [];
+      if (this.isNewRound == true) {
+        return;
+      }
 
       this.deck = null;
       this.pMain.winner.toggle("winner", true);
@@ -56,20 +66,20 @@ class Game {
         cardGridCards[i].id = "";
       
         if (this.savedCards[i][this.savedCards[i].length - 1] == "H") {
-          cardGridCards[i].classList = "card hidden";
+          cardGridCards[i].classList = "card";
         } else if (this.savedCards[i][this.savedCards[i].length - 1] == "C") {
-          cardGridCards[i].classList = "card hidden";
+          cardGridCards[i].classList = "card";
         } else if (this.savedCards[i][this.savedCards[i].length - 1] == "S") {
-          cardGridCards[i].classList = "card hidden";
+          cardGridCards[i].classList = "card";
         } else {
-          cardGridCards[i].classList = "card hidden";
+          cardGridCards[i].classList = "card";
         }
       
         cardGridCards[i].innerHTML += `<p class="u"></p><div class="l"></div>`;
         cardGridCards[i].querySelector(".u").textContent = "";
       }
 
-
+      this.savedCards = [];
 
       this.newRound();
 
@@ -79,6 +89,9 @@ class Game {
 
       this.winner = null;
       this.draw = null;
+
+      this.hasBet = false;
+      this.isNewRound = true;
     });
   }
 
@@ -87,11 +100,28 @@ class Game {
     this.newDeal();
   }
 
-  // do bet
-
   betAndShow() {
     // remove bet amount from held coins
-    const betAmount = document.querySelector(".bet-amount").value;
+    const betSelector = document.querySelector(".bet-amount");
+    const betAmount = betSelector.value;
+
+    if (Number(betAmount) > this.heldCoins || Number(betAmount) % 1 != 0) {
+      const modal = document.querySelector(".modal-input");
+
+      window.onclick = (event) => {
+        if (event.target == modal || event.target == document.querySelector(".app") || event.target == document.querySelector("div")) {
+          modal.style.display = "none";
+        }
+      }
+      
+      modal.style.display = "flex";
+
+      setTimeout(() => {
+        modal.style.display = "none";
+      }, 4000)
+      return;
+    }
+
     this.setCoins(this.heldCoins-=betAmount);
     // add bet amount to pot from all players
     this.pot += betAmount*4;
@@ -105,12 +135,19 @@ class Game {
     if (this.winner == "main") {
       console.log("Main has won!");
       this.setCoins(this.heldCoins+=this.pot);
+    } else if (this.draw == null) {
+
     } else if (this.draw.includes(0)) {
       console.log("draw with main player!");
       const splitReward = Math.floor(this.pot / this.draw.length)
       this.setCoins(this.heldCoins+=splitReward);
       console.log("splitReward = ", splitReward);
     }
+
+    betSelector.value = "";
+
+    this.hasBet = true;
+    this.isNewRound = false;
   }
 
   decideWinner() {
@@ -786,6 +823,7 @@ class Game {
 
 
 }
+
 
 
 
