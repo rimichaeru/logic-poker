@@ -1,4 +1,5 @@
 import {Deck, Player} from "./deck-player.js"
+import confetti from "./node_modules/canvas-confetti/dist/confetti.module.mjs";
 
 class Game {
   constructor() {
@@ -32,19 +33,26 @@ class Game {
 
     // bet event listener
     this.initButton();
-    
+
   }
 
   initButton() {
     document.querySelector(".send-bet").addEventListener("click", () => {
       if (this.hasBet == true) {
+        const audio = new Audio("./assets/slap.wav");
+        audio.play();
         return;
       }
+
+      const audio = new Audio("./assets/shuffle.wav");
+      audio.play();
       this.betAndShow();
       
     });
 
     document.querySelector(".next-round").addEventListener("click", () => {
+      const audio = new Audio("./assets/pop.wav");
+      audio.play();
       if (this.isNewRound == true) {
         return;
       }
@@ -92,6 +100,34 @@ class Game {
 
       this.hasBet = false;
       this.isNewRound = true;
+
+      const cards = document.querySelectorAll(".mainPlayer .card");
+      
+      for (let i = 0; i < cards.length; i++) {
+        cards[i].classList.add("hidden");
+        setTimeout(() => {
+          cards[i].classList.add("grow");
+          cards[i].classList.remove("hidden");
+        }, i * 200)
+        cards[i].classList.remove("grow");
+      }
+
+      const gridCards = document.querySelectorAll(".card-grid .card");
+      for (let i = 0; i < gridCards.length; i++) {
+        gridCards[i].classList.add("hidden");
+      }
+
+      setTimeout(() => {
+        for (let i = 0; i < gridCards.length; i++) {
+          setTimeout(() => {
+            gridCards[i].classList.add("growQuick");
+            gridCards[i].classList.remove("hidden");
+          }, i * 140)
+          gridCards[i].classList.remove("growQuick");
+        }
+      }, 1000)
+
+
     });
   }
 
@@ -133,7 +169,12 @@ class Game {
 
     // add to main player
     if (this.winner == "main") {
-      console.log("Main has won!");
+      confetti({
+        particleCount: 180,
+        spread: 180,
+        origin: {x:0.5 , y: 0.9},
+        colors: ["#f54242", "#ed28dd", "#22e0da", "#00f228"]
+      });
       this.setCoins(this.heldCoins+=this.pot);
     } else if (this.draw == null) {
 
@@ -823,6 +864,8 @@ class Game {
 
 
 }
+
+
 
 
 
