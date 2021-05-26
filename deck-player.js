@@ -92,13 +92,13 @@ export class Player {
       playerCards[i].id = "";
 
       if (this.playerHand[i][this.playerHand[i].length - 1] == "H") {
-        playerCards[i].classList = "card hidden";
+        playerCards[i].classList = "card";
       } else if (this.playerHand[i][this.playerHand[i].length - 1] == "C") {
-        playerCards[i].classList = "card hidden";
+        playerCards[i].classList = "card";
       } else if (this.playerHand[i][this.playerHand[i].length - 1] == "S") {
-        playerCards[i].classList = "card hidden";
+        playerCards[i].classList = "card";
       } else {
-        playerCards[i].classList = "card hidden";
+        playerCards[i].classList = "card";
       }
 
       playerCards[i].innerHTML += `<p class="u"></p><div class="l"></div>`;

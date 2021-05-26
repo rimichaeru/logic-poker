@@ -1,7 +1,27 @@
-.bob {
-  transform: translate3d(10px, 10px);
+@keyframes grow {
+  from {transform: scale(0);}
+  to {transform: scale(1.4);}
 }
 
+.grow {
+  animation: grow .3s;
+}
+
+@keyframes growQuick {
+  from {transform: scale(0);}
+  to {transform: scale(1.2);}
+}
+
+.growQuick {
+  animation: growQuick .2s;
+}
+
+.hidden {
+  background-image: url("./assets/cards_back.png") !important;
+  & > * {
+    display: none;
+  }
+}
 
 * { 
   margin: 0;
@@ -73,6 +93,7 @@ button {
   padding: 10px;
   box-shadow: 2px 4px rgba(17, 17, 17, 0.884);
   height: 420px;
+  width: auto;
   background-image: url(assets/tables_play_area.png);
 
   &__top-area {
@@ -187,6 +208,14 @@ button {
   border-radius: 10px;
   box-shadow: 2px 4px rgba(15, 15, 15, 0.945);
 
+  & > * {
+    transition: transform .3s ease-in-out;
+  }
+
+  & > *:hover {
+    z-index: 1;
+    transform: scale(2);
+  }
 }
 
 
@@ -321,7 +350,13 @@ button {
 .mainPlayer {
   & > * {
     transform: scale(1.4);
+    transition: transform .3s ease-in-out;
   }
+
+  & > *:hover {
+    transform: translate3d(10px, 10px, 0) scale(1.4);
+  }
+
 }
 
 
@@ -342,6 +377,7 @@ button {
 
   .board {
     height: auto;
+    width: auto;
   }
 
   
@@ -427,6 +463,9 @@ button {
     }
   }
 
+  .board__mid-area__mid__text {
+    font-size: 20px;
+  }
   
 
   .topPlayer {
