@@ -50,7 +50,6 @@ export class Player {
     // turn off the winner class
     this.winner = document.querySelector(`.${this.location}`).classList;
     this.winner.toggle("winner");
-    
   }
 
   // Must be called Temp, otherwise activeCards doesn't update globally

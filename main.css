@@ -3,11 +3,11 @@
     transform: scale(0);
   }
   to {
-    transform: scale(1.4);
+    transform: scale(1.8);
   }
 }
 .grow {
-  animation: grow 0.3s;
+  animation: grow 0.2s;
 }
 
 @keyframes growQuick {
@@ -15,7 +15,7 @@
     transform: scale(0);
   }
   to {
-    transform: scale(1.2);
+    transform: scale(1.6);
   }
 }
 .growQuick {
@@ -80,6 +80,19 @@ button {
 }
 button:hover {
   background-color: rgba(216, 33, 33, 0.836);
+}
+
+#restart {
+  position: absolute;
+  left: 0;
+  top: 0;
+  margin: 20px;
+  color: #d9d9d9;
+  font-size: 26px;
+}
+#restart:hover {
+  border: 5px solid rgba(216, 33, 33, 0.836);
+  border-radius: 4px;
 }
 
 .app {
@@ -222,6 +235,35 @@ button:hover {
   justify-content: flex-end;
   gap: 6px;
 }
+.bet .bet-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  padding: 6px;
+}
+.bet .bet-buttons > * {
+  height: 24px;
+  width: 60px;
+}
+.bet .bet-buttons .betH {
+  background-color: rgba(214, 255, 32, 0.904);
+  border-radius: 1px;
+}
+.bet .bet-buttons .bet2 {
+  background-color: rgba(224, 221, 21, 0.897);
+  border-radius: 1px;
+}
+.bet .bet-buttons .bet3 {
+  background-color: rgba(199, 182, 29, 0.932);
+  border-radius: 1px;
+}
+.bet .bet-buttons .bet4 {
+  background-color: rgba(170, 151, 41, 0.87);
+  border-radius: 1px;
+}
+.bet .bet-buttons > *:hover {
+  background-color: rgba(216, 33, 33, 0.836);
+}
 .bet__input-container {
   display: flex;
   justify-content: center;
@@ -314,6 +356,12 @@ button:hover {
 }
 
 @media screen and (min-width: 480px) {
+  #restart {
+    left: 16%;
+    margin: 36px;
+    font-size: 30px;
+  }
+
   .app {
     width: 70vw;
     grid-template-rows: 55% 24% 20%;
@@ -398,6 +446,16 @@ button:hover {
   }
 }
 @media screen and (min-width: 1400px) {
+  #restart {
+    left: 24%;
+    margin: 36px;
+    font-size: 40px;
+  }
+
+  button {
+    transform: scale(1.4);
+  }
+
   .app {
     width: 60vw;
     grid-template-rows: 55% 24% 20%;
@@ -445,5 +503,22 @@ button:hover {
   }
   .card-grid > * {
     transform: scale(1.8);
+  }
+
+  .bet-buttons {
+    gap: 30px;
+  }
+  .bet-buttons > * {
+    margin: 0 6px;
+  }
+
+  .bet__input-container {
+    margin-top: 2px;
+  }
+  .bet__input-container .coin-amount {
+    font-size: 26px;
+  }
+  .bet__input-container > * {
+    margin: 0 8px;
   }
 }

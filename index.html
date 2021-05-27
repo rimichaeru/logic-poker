@@ -1,127 +1,187 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Logic Poker</title>
-  <link rel="preconnect" href="https://fonts.gstatic.com">
-  <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap" rel="stylesheet"> 
-  <link rel="stylesheet" href="main.css">
-</head>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Logic Poker</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="main.css" />
+    <script src="https://code.iconify.design/1/1.0.6/iconify.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
+  </head>
 
-<body>
-  <div class="app">
-    <main class="board">
-      <div class="board__top-area">
-        <div class="board__top-area__top-hand topPlayer winner">
-          <div class="card"></div>
-          <div class="card"></div>
-          <div class="card"></div>
-          <div class="card"></div>
-          <div class="card"></div>
-        </div>
-      </div>
-
-      <div class="board__mid-area">
-        <div class="board__mid-area__left">
-          <div class="board__mid-area__left__left-hand leftPlayer rotate-right winner">
-            <div class="card"></div>
-            <div class="card"></div>
-            <div class="card"></div>
-            <div class="card"></div>
-            <div class="card"></div>
-          </div>
-        </div>
-
-        <div class="board__mid-area__mid">
-          <div class="coin-container">
-            <p class="board__mid-area__mid__coins">Coins</p>
-            <img src="" alt="Coins" class="board__mid-area__mid__img coin-img">
-          </div>
-          <p class="board__mid-area__mid__text" readonly>Welcome</p>
-        </div>
-        
-        <div class="board__mid-area__right">
-          <div class="board__mid-area__right__right-hand rightPlayer rotate-left winner">
-            <div class="card"></div>
-            <div class="card"></div>
-            <div class="card"></div>
-            <div class="card"></div>
-            <div class="card"></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="board__bot-area">
-        <div class="board__bot-area__bot-hand mainPlayer winner">
-          <div class="card"></div>
-          <div class="card"></div>
-          <div class="card"></div>
-          <div class="card"></div>
-          <div class="card"></div>
-        </div>
-      </div>
-    </main>
-  
-    <div class="card-grid">
-      <div class="card"></div>
-      <div class="card"></div>
-      <div class="card"></div>
-      <div class="card"></div>
-      <div class="card"></div>
-      <div class="card"></div>
-      <div class="card"></div>
-      <div class="card"></div>
-      <div class="card"></div>
-      <div class="card"></div>
-      <div class="card"></div>
-      <div class="card"></div>
-      <div class="card"></div>
-      <div class="card"></div>
-      <div class="card"></div>
+  <body>
+    <div id="restart-game">
+      <span
+        id="restart"
+        class="iconify"
+        data-inline="false"
+        data-icon="jam:refresh-reverse"
+      ></span>
     </div>
-  
-    <div class="bet">
-      <div class="bet__settings">
-        <div class="radio-buttons">
-          <p>Ante: </p>
-          <input type="radio" id="low" name="betAmount" value="low" class="radio" checked>
-          <label for="low">Low</label>
-          <input type="radio" id="mid" name="betAmount" value="mid" class="radio">
-          <label for="low">Mid</label>
-          <input type="radio" id="high" name="betAmount" value="high" class="radio">
-          <label for="low">High</label>
+
+    <div class="app">
+      <main class="board">
+        <div class="board__top-area">
+          <div class="board__top-area__top-hand topPlayer winner">
+            <div class="card"></div>
+            <div class="card"></div>
+            <div class="card"></div>
+            <div class="card"></div>
+            <div class="card"></div>
+          </div>
         </div>
-        
-        <div class="rounded-container">
-          <label for="rounded">Rounded?</label>
-          <input type="checkbox" id="rounded" name="rounded" value="rounded" class="rounded">
+
+        <div class="board__mid-area">
+          <div class="board__mid-area__left">
+            <div
+              class="
+                board__mid-area__left__left-hand
+                leftPlayer
+                rotate-right
+                winner
+              "
+            >
+              <div class="card"></div>
+              <div class="card"></div>
+              <div class="card"></div>
+              <div class="card"></div>
+              <div class="card"></div>
+            </div>
+          </div>
+
+          <div class="board__mid-area__mid">
+            <div class="coin-container">
+              <p class="board__mid-area__mid__coins">Coins</p>
+              <img
+                src=""
+                alt="Coins"
+                class="board__mid-area__mid__img coin-img"
+              />
+            </div>
+            <p class="board__mid-area__mid__text" readonly>Welcome</p>
+          </div>
+
+          <div class="board__mid-area__right">
+            <div
+              class="
+                board__mid-area__right__right-hand
+                rightPlayer
+                rotate-left
+                winner
+              "
+            >
+              <div class="card"></div>
+              <div class="card"></div>
+              <div class="card"></div>
+              <div class="card"></div>
+              <div class="card"></div>
+            </div>
+          </div>
         </div>
+
+        <div class="board__bot-area">
+          <div class="board__bot-area__bot-hand mainPlayer winner">
+            <div class="card"></div>
+            <div class="card"></div>
+            <div class="card"></div>
+            <div class="card"></div>
+            <div class="card"></div>
+          </div>
+        </div>
+      </main>
+
+      <div class="card-grid">
+        <div class="card"></div>
+        <div class="card"></div>
+        <div class="card"></div>
+        <div class="card"></div>
+        <div class="card"></div>
+        <div class="card"></div>
+        <div class="card"></div>
+        <div class="card"></div>
+        <div class="card"></div>
+        <div class="card"></div>
+        <div class="card"></div>
+        <div class="card"></div>
+        <div class="card"></div>
+        <div class="card"></div>
+        <div class="card"></div>
       </div>
 
-      <div class="bet__input-container">
-        <div class="coin-amount-container">
-          <p class="coin-amount"></p>
-          <p class="coin-label">Coins</p>
-        </div>
-        <input type="text" class="bet-amount" placeholder="0">
-        <button class="send-bet">Bet!</button>
-        <button class="next-round">Next Round</button>
-      </div>
+      <div class="bet">
+        <div class="bet__settings">
+          <div class="radio-buttons">
+            <p>Ante:</p>
+            <input
+              type="radio"
+              id="low"
+              name="betAmount"
+              value="low"
+              class="radio"
+              checked
+            />
+            <label for="low">Low</label>
+            <input
+              type="radio"
+              id="mid"
+              name="betAmount"
+              value="mid"
+              class="radio"
+            />
+            <label for="low">Mid</label>
+            <input
+              type="radio"
+              id="high"
+              name="betAmount"
+              value="high"
+              class="radio"
+            />
+            <label for="low">High</label>
+          </div>
 
-      <p class="copy">By Lee-Michael D'Souza</p>
-  
+          <div class="rounded-container">
+            <label for="rounded">Rounded?</label>
+            <input
+              type="checkbox"
+              id="rounded"
+              name="rounded"
+              value="rounded"
+              class="rounded"
+            />
+          </div>
+        </div>
+
+        <div class="bet-buttons">
+          <button class="betH">Half</button>
+          <button class="bet2">x2</button>
+          <button class="bet3">x3</button>
+          <button class="bet4">Max x4</button>
+        </div>
+        <div class="bet__input-container">
+          <div class="coin-amount-container">
+            <p class="coin-amount"></p>
+            <p class="coin-label">Coins</p>
+          </div>
+          <input type="text" class="bet-amount" placeholder="0" />
+          <button class="send-bet">Bet!</button>
+          <button class="next-round">Next Round</button>
+        </div>
+
+        <p class="copy">By Lee-Michael D'Souza</p>
+      </div>
     </div>
-  </div>
 
-  <div class="modal modal-input">
-    <p>Please enter an appropriate amount.</p>
-  </div>
+    <div class="modal modal-input">
+      <p></p>
+    </div>
 
-
-  <script src="deck-player.js" type="module"></script>
-  <script src="main.js" type="module"></script>
-</body>
-
+    <script src="deck-player.js" type="module"></script>
+    <script src="main.js" type="module"></script>
+  </body>
 </html>
