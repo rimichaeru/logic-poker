@@ -226,7 +226,7 @@ class Game {
     const betSelector = document.querySelector(".bet-amount");
     const betAmount = betSelector.value;
 
-    if (Number(betAmount) <= 0) {
+    if (Number(document.querySelector(".coin-amount").textContent) <= 0) {
       this.restartGame();
       return;
     }
