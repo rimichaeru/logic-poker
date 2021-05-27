@@ -42,7 +42,7 @@ Tip: Remember, there's a baseline 1/4 chance to win!
 
 
 
-Future feature plans:
+#### Future feature plans:
  - Display rank of winning hand
  - Odd percentages of current hand, can toggle off and on
  - Local and online multiplayer
