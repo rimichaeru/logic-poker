@@ -10,7 +10,8 @@ What if you had a 60% chance to win? Then you would bet around 60% of the curren
 eg. 100 coins in the pot, your cards have a 60% chance to win. You should bet 60 coins and over time this would make you money.
 To make this beneficial, you must do this every round. 40% chance to win on round 1? Bet 40% of pot. 70% chance to win on round 2, bet 70% of pot. And so on!
 
-For more on bet-sizing: https://www.888poker.com/magazine/strategy/bet-sizing-poker-comprehensive-guide
+For more on bet-sizing visit: `https://www.888poker.com/magazine/strategy/bet-sizing-poker-comprehensive-guide/`
+
 
 #### How to play:
 You start with 3000 coins. Do not lose them all.
