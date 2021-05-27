@@ -5,10 +5,14 @@
 ## This is a game to practice bet-sizing calculation and discipline
 ### What is bet-sizing?
 Bet-sizing is betting an amount in relation to how strong your hand is.
+<br>
 For example, if your hand has a 50% chance to win, then you should bet 50% of the current pot, over time you would break even and should not lose more coins than you win.
+<br>
 What if you had a 60% chance to win? Then you would bet around 60% of the current pot, over time this would make you money, even if you lose 40% of the time.
 eg. 100 coins in the pot, your cards have a 60% chance to win. You should bet 60 coins and over time this would make you money.
+<br>
 To make this beneficial, you must do this every round. 40% chance to win on round 1? Bet 40% of pot. 70% chance to win on round 2, bet 70% of pot. And so on!
+<br>
 
 For more on bet-sizing visit: `https://www.888poker.com/magazine/strategy/bet-sizing-poker-comprehensive-guide/`
 
@@ -24,7 +28,7 @@ You may lose a lot. The aim of the game is **not to win every hand** but to accu
 This can be achieved by betting according to your hand's strength and the coin ante already in the pot! Just like in regular poker. 
 If you become good at bet sizing in this way then you should be able to, technically, always win after many rounds!
 
-You are not able to bet more than 4 times the pot, this prevents a sudden large win in the case of very good cards - the aim is to be consistent, and is also inline with max-bet poker formats!
+You are not able to bet more than 2 times the pot, this prevents a sudden large win in the case of very good cards - the aim is to be consistent, and is also inline with max-bet poker formats!
 Tip: Remember, there's a baseline 1/4 chance to win!
 
 #### Extra Features:
@@ -32,3 +36,10 @@ Tip: Remember, there's a baseline 1/4 chance to win!
  - Low/Mid/High base ante to change the pace of the game
  - Restart game
  - Fixed betting buttons for ease of use
+
+
+
+Future feature plans:
+ - Display rank of winning hand
+ - Odd percentages of current hand, can toggle off and on
+ - Local and online multiplayer

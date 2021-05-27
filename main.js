@@ -33,6 +33,27 @@ class Game {
 
     // bet event listener
     this.initButtons();
+
+    const modal = document.querySelector(".modal-info");  
+    modal.childNodes[0].textContent = `
+    How to play:
+    You start with 3000 coins. You will automatically pay the ante every round.
+    View your hand and the other players' hands - but you do not know which opponent has what cards!
+    Based on this information and the generated ante, make a bet.
+    Max bet is 2x pot!
+    `
+    window.onclick = (event) => {
+      if (
+        event.target == modal ||
+        event.target == document.querySelector(".app") ||
+        event.target == document.querySelector("div")
+      ) {
+        modal.style.display = "none";
+      }
+    };
+
+    modal.style.display = "flex";
+
   }
 
   initButtons() {
@@ -40,7 +61,7 @@ class Game {
       this.restartGame(true);
     });
 
-    document.querySelector(".betH").addEventListener("click", () => {
+    document.querySelector(".bet03").addEventListener("click", () => {
       if (this.hasBet == true) {
         const audio = new Audio("./assets/slap.wav");
         audio.play();
@@ -50,7 +71,63 @@ class Game {
       const audio = new Audio("./assets/shuffle.wav");
       audio.play();
 
-      document.querySelector(".bet-amount").value = Math.floor(this.pot / 2);
+      document.querySelector(".bet-amount").value = Math.floor(this.pot * 0.3);
+      this.betAndShow();
+    });
+
+    document.querySelector(".bet05").addEventListener("click", () => {
+      if (this.hasBet == true) {
+        const audio = new Audio("./assets/slap.wav");
+        audio.play();
+        return;
+      }
+
+      const audio = new Audio("./assets/shuffle.wav");
+      audio.play();
+
+      document.querySelector(".bet-amount").value = Math.floor(this.pot * 0.5);
+      this.betAndShow();
+    });
+
+    document.querySelector(".bet06").addEventListener("click", () => {
+      if (this.hasBet == true) {
+        const audio = new Audio("./assets/slap.wav");
+        audio.play();
+        return;
+      }
+
+      const audio = new Audio("./assets/shuffle.wav");
+      audio.play();
+
+      document.querySelector(".bet-amount").value = Math.floor(this.pot * 0.6);
+      this.betAndShow();
+    });
+
+    document.querySelector(".bet08").addEventListener("click", () => {
+      if (this.hasBet == true) {
+        const audio = new Audio("./assets/slap.wav");
+        audio.play();
+        return;
+      }
+
+      const audio = new Audio("./assets/shuffle.wav");
+      audio.play();
+
+      document.querySelector(".bet-amount").value = Math.floor(this.pot * 0.8);
+      this.betAndShow();
+    });
+
+    document.querySelector(".bet1").addEventListener("click", () => {
+      if (this.hasBet == true) {
+        const audio = new Audio("./assets/slap.wav");
+        audio.play();
+        return;
+      }
+
+      const audio = new Audio("./assets/shuffle.wav");
+      audio.play();
+
+      document.querySelector(".bet-amount").value = Math.floor(this.pot);
       this.betAndShow();
     });
 
@@ -68,33 +145,6 @@ class Game {
       this.betAndShow();
     });
 
-    document.querySelector(".bet3").addEventListener("click", () => {
-      if (this.hasBet == true) {
-        const audio = new Audio("./assets/slap.wav");
-        audio.play();
-        return;
-      }
-
-      const audio = new Audio("./assets/shuffle.wav");
-      audio.play();
-
-      document.querySelector(".bet-amount").value = Math.floor(this.pot * 3);
-      this.betAndShow();
-    });
-
-    document.querySelector(".bet4").addEventListener("click", () => {
-      if (this.hasBet == true) {
-        const audio = new Audio("./assets/slap.wav");
-        audio.play();
-        return;
-      }
-
-      const audio = new Audio("./assets/shuffle.wav");
-      audio.play();
-
-      document.querySelector(".bet-amount").value = Math.floor(this.pot * 4);
-      this.betAndShow();
-    });
 
     document.querySelector(".send-bet").addEventListener("click", () => {
       if (this.hasBet == true) {
@@ -234,13 +284,13 @@ class Game {
     if (
       Number(betAmount) > this.heldCoins ||
       Number(betAmount) % 1 != 0 ||
-      Number(betAmount) > this.pot * 4
+      Number(betAmount) > this.pot * 2
     ) {
       const modal = document.querySelector(".modal-input");
 
       // For over max bet
       if (Number(betAmount) > this.pot * 4) {
-        modal.childNodes[0].textContent = `Please enter a bet less than 4 x pot (${
+        modal.childNodes[0].textContent = `Please enter a bet less than 2 x pot (${
           this.pot * 4
         })`;
       } else {
