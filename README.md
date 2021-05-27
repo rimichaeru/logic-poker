@@ -1,12 +1,24 @@
 # logic-poker
-### A condensed, yet critically different, version of poker based on bet sizing judgement.
+### A condensed, yet critically different, version of poker based on bet-sizing judgement.
 ### Logic poker is a type of speed poker with an emphasis on bet-sizing.
 
+## This is a game to practice bet-sizing calculation and discipline
+### What is bet-sizing?
+Bet-sizing is betting an amount in relation to how strong your hand is.
+For example, if your hand has a 50% chance to win, then you should bet 50% of the current pot, over time you would break even and should not lose more coins than you win.
+What if you had a 60% chance to win? Then you would bet around 60% of the current pot, over time this would make you money, even if you lose 40% of the time.
+eg. 100 coins in the pot, your cards have a 60% chance to win. You should bet 60 coins and over time this would make you money.
+To make this beneficial, you must do this every round. 40% chance to win on round 1? Bet 40% of pot. 70% chance to win on round 2, bet 70% of pot. And so on!
+
+For more on bet-sizing: https://www.888poker.com/magazine/strategy/bet-sizing-poker-comprehensive-guide
+
 #### How to play:
+You start with 3000 coins. Do not lose them all.
+You will automatically pay the ante every round.
 1. View your hand and 3 other players' hands - but you do not know which opponent has what cards!
 2. Based on this information and the generated ante, make a bet.
 3. Win!
- 
+
 You may lose a lot. The aim of the game is **not to win every hand** but to accumulate as many coins as possible over numerous games.
 This can be achieved by betting according to your hand's strength and the coin ante already in the pot! Just like in regular poker. 
 If you become good at bet sizing in this way then you should be able to, technically, always win after many rounds!
