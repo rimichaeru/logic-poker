@@ -61,9 +61,9 @@ $breakpoint-tablet-large: 1400px;
   width: 60%; /* Full width */
   height: 20%; /* Full height */
   overflow: auto; 
-  background-color: #008542; 
+  background-color: #0a4628; 
   border-radius: 10px;
-  border: 4px solid rgba(122, 0, 0, 0.897);
+  border: 2px solid black;
   box-shadow: 2px 2px rgba(19, 19, 19, 0.685);
   margin: 15% auto; /* 15% from the top and centered */
   padding: 20px;
@@ -80,6 +80,12 @@ $breakpoint-tablet-large: 1400px;
   border: 4px solid black;
   background-color: #0a4628; 
 }
+
+// .modal-bg {
+//   height: 100%;
+//   width: 100%;
+//   background-color: black;
+// }
 
 button {
   padding: 0 5px;
@@ -101,6 +107,20 @@ button {
   &:hover {
     //background-color: rgba(216, 33, 33, 0.836);
     border: 5px solid rgba(216, 33, 33, 0.836);
+    border-radius: 4px;
+  }
+}
+
+#ranks {
+  position: absolute;
+  right: 0;
+  top: 0;
+  margin: 25px 14px;
+  color: #1d1d1d;
+  font-size: 10px;
+  border-radius: 4px;
+
+  &:hover {
     border-radius: 4px;
   }
 }
@@ -433,6 +453,13 @@ button {
     font-size: 30px;
   }
 
+  #ranks {
+    right: 16%;
+    margin: 40px 14px;
+    font-size: 12px;
+    border-radius: 4px;
+  }
+
   .app {
     width: 70vw;
     grid-template-rows: 55% 24% 20%;
@@ -529,6 +556,13 @@ button {
     left: 24%;
     margin: 36px;
     font-size: 40px;
+  }
+
+  #ranks {
+    right: 24%;
+    margin: 40px 14px;
+    font-size: 15px;
+    border-radius: 4px;
   }
 
   button {

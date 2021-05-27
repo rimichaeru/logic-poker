@@ -34,26 +34,36 @@ class Game {
     // bet event listener
     this.initButtons();
 
-    const modal = document.querySelector(".modal-info");  
-    modal.childNodes[0].textContent = `
-    How to play:
-    You start with 3000 coins. You will automatically pay the ante every round.
-    View your hand and the other players' hands - but you do not know which opponent has what cards!
+    const modal = document.querySelector(".modal-info");
+    modal.childNodes[1].innerHTML = `
+    <span style="font-size:36px">How to play</span>:
+    <br>
+    <br>
+    <span style="color:azure">
+    You start with <span style="color:pink">3000 coins</span>. 
+    <br>
+    You will automatically pay the ante every round.
+    <br>
+    <br>
+    View your hand and the other players' hands - but <span style="color:pink">you do not know which opponent has what cards!</span>
+    <br>
+    <br>
     Based on this information and the generated ante, make a bet.
-    Max bet is 2x pot!
-    `
+    <br>
+    <span style="color:pink">Max bet is 2x pot!</span>
+    </span>
+    `;
     window.onclick = (event) => {
-      if (
-        event.target == modal ||
-        event.target == document.querySelector(".app") ||
-        event.target == document.querySelector("div")
-      ) {
+      if (event.target == modal) {
         modal.style.display = "none";
+        modal.childNodes[1].innerHTML = ``;
+      } else {
+        modal.style.display = "none";
+        modal.childNodes[1].innerHTML = ``;
       }
     };
 
     modal.style.display = "flex";
-
   }
 
   initButtons() {
@@ -145,7 +155,6 @@ class Game {
       this.betAndShow();
     });
 
-
     document.querySelector(".send-bet").addEventListener("click", () => {
       if (this.hasBet == true) {
         const audio = new Audio("./assets/slap.wav");
@@ -156,6 +165,59 @@ class Game {
       const audio = new Audio("./assets/shuffle.wav");
       audio.play();
       this.betAndShow();
+    });
+
+    document.querySelector(".ranks").addEventListener("click", () => {
+      const modal = document.querySelector(".modal-info");
+      modal.childNodes[1].innerHTML = `
+      <span style="font-size:20px; color:pink">Straight Flush</span>: 0.0015%
+      <br>
+      <br>
+      <span style="font-size:20px; color:pink">4 of a Kind</span>: 0.024%
+      <br>
+      <br>
+      <span style="font-size:20px; color:pink">Full House</span>: 0.144%
+      <br>
+      <br>
+      <span style="font-size:20px; color:pink">Flush</span>: 0.197%
+      <br>
+      <br>
+      <span style="font-size:20px; color:pink">Straight</span>: 0.39%
+      <br>
+      <br>
+      <span style="font-size:20px; color:pink">3 of a Kind</span>: 2.11%
+      <br>
+      <br>
+      <span style="font-size:20px; color:pink">Two Pairs</span>: 4.75%
+      <br>
+      <br>
+      <span style="font-size:20px; color:pink">One Pair</span>: 42.26%
+      <br>
+      <br>
+      <span style="font-size:20px; color:pink">High Card</span>: 50.18%
+      `;
+
+      modal.style.display = "flex";
+
+      window.onclick = (event) => {
+        if (
+          event.target == modal ||
+          event.target == document.querySelector(".app") ||
+          event.target == document.querySelector("div") ||
+          event.target == document.querySelector(".bet__input-container") ||
+          event.target == document.querySelector(".bet-buttons") ||
+          event.target == document.querySelector(".card-grid") ||
+          event.target == document.querySelector(".bet-settings") ||
+          event.target == document.querySelector(".modal-bg")
+        ) {
+          modal.style.display = "none";
+          modal.childNodes[1].innerHTML = ``;
+        }
+      };
+
+      setTimeout(() => {
+        modal.style.display = "none";
+      }, 20000);
     });
 
     document.querySelector(".next-round").addEventListener("click", () => {
@@ -260,7 +322,12 @@ class Game {
         if (
           event.target == modal ||
           event.target == document.querySelector(".app") ||
-          event.target == document.querySelector("div")
+          event.target == document.querySelector("div") ||
+          event.target == document.querySelector(".bet__input-container") ||
+          event.target == document.querySelector(".bet-buttons") ||
+          event.target == document.querySelector(".card-grid") ||
+          event.target == document.querySelector(".bet-settings") ||
+          event.target == document.querySelector(".modal-bg")
         ) {
           modal.style.display = "none";
           location.reload(true);
@@ -290,8 +357,8 @@ class Game {
 
       // For over max bet
       if (Number(betAmount) > this.pot * 4) {
-        modal.childNodes[0].textContent = `Please enter a bet less than 2 x pot (${
-          this.pot * 4
+        modal.childNodes[0].textContent = `Please enter a bet less than 2*pot (${
+          this.pot * 2
         })`;
       } else {
         modal.childNodes[0].textContent = `Please enter an appropriate amount.`;
@@ -301,7 +368,12 @@ class Game {
         if (
           event.target == modal ||
           event.target == document.querySelector(".app") ||
-          event.target == document.querySelector("div")
+          event.target == document.querySelector("div") ||
+          event.target == document.querySelector(".bet__input-container") ||
+          event.target == document.querySelector(".bet-buttons") ||
+          event.target == document.querySelector(".card-grid") ||
+          event.target == document.querySelector(".bet-settings") ||
+          event.target == document.querySelector(".modal-bg")
         ) {
           modal.style.display = "none";
         }
@@ -497,7 +569,6 @@ class Game {
       };
 
       let sortedNumCards = sortCards(numCards);
-      console.log(sortedNumCards);
 
       let inOrder = true;
       for (let i = 0; i < sortedNumCards.length - 1; i++) {
@@ -567,8 +638,6 @@ class Game {
     const maxRank = Math.max(...rankArray);
     const maxRankConflict = Math.max(...rankArrayConflict);
     const winMax = [maxRank, maxRankConflict];
-
-    console.log("winMax:", winMax);
 
     const rankWinnerIndexes = rankArray.filter((playerRank) => {
       return maxRank == playerRank;
@@ -754,7 +823,6 @@ class Game {
         } else {
           // draw, send draw to indicate who to split between
           let hcArr = [winnerRanks[0][2], winnerRanks[1][2], winnerRanks[2][2]];
-          console.log(hcArr);
           let drawWinners = [];
           for (let i = 0; i < rankAll.length; i++) {
             if (
@@ -909,9 +977,6 @@ class Game {
       }
     }
 
-    console.log("rankArr", rankArray);
-    console.log("rankWinInd", rankWinnerIndexes);
-
     // give/take coins
   }
 
@@ -980,7 +1045,6 @@ class Game {
     // deals 20 random cards for the play as the activeCards
     let activeCardsArr = deckInst.dealCards(deckInst.deck, 20);
     let activeCards = activeCardsArr[1];
-    console.log("activeCards:", activeCards, deckInst);
 
     // creates each player;
     this.pMain = new Player("mainPlayer", activeCards, deckInst);
@@ -993,16 +1057,6 @@ class Game {
     activeCards = this.pTwo.activeCards;
     this.pThree = new Player("rightPlayer", activeCards, deckInst);
     activeCards = this.pThree.activeCards;
-
-    console.log(this.pOne.playerHand);
-    console.log(this.pTwo.playerHand);
-    console.log(this.pThree.playerHand);
-    console.log(this.pMain.playerHand);
-
-    console.log(
-      "Must be an empty arr after dealing - activeCards: ",
-      activeCards
-    );
 
     // ORDERING GRID CARDS FIRST
     const orderCards = (cardArray) => {
