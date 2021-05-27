@@ -1,10 +1,13 @@
 # logic-poker
-### A condensed, yet critically different, version of poker based on bet-sizing judgement.
-### Logic poker is a type of speed poker with an emphasis on bet-sizing.
+#### A condensed, yet critically different, version of poker based on bet sizing judgement.
+#### Logic poker is a type of speed poker with an emphasis on bet sizing.
+Github pages: https://rimichaeru.github.io/logic-poker/
+<br>
+<br>
 
-## This is a game to practice bet-sizing calculation and discipline
-### What is bet-sizing?
-Bet-sizing is betting an amount in relation to how strong your hand is.
+## This is a game to practice bet sizing calculation and discipline
+### What is bet sizing?
+Bet sizing is betting an amount in relation to how strong your hand is.
 <br>
 For example, if your hand has a 50% chance to win, then you should bet 50% of the current pot, over time you would break even and should not lose more coins than you win.
 <br>
@@ -14,7 +17,7 @@ eg. 100 coins in the pot, your cards have a 60% chance to win. You should bet 60
 To make this beneficial, you must do this every round. 40% chance to win on round 1? Bet 40% of pot. 70% chance to win on round 2, bet 70% of pot. And so on!
 <br>
 
-For more on bet-sizing visit: `https://www.888poker.com/magazine/strategy/bet-sizing-poker-comprehensive-guide/`
+For more on bet sizing visit: http://www.pokerology.com/lessons/bet-sizing/
 
 
 #### How to play:
