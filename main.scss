@@ -128,6 +128,7 @@ button {
 .app {
   display: grid;
   height: 100vh;
+  width: 100%;
   grid-template-columns: 1fr;
   grid-template-rows: 2fr 1fr 1fr;
   row-gap: 5px;
@@ -144,7 +145,7 @@ button {
   padding: 10px;
   box-shadow: 2px 4px rgba(17, 17, 17, 0.884);
   height: 420px;
-  width: auto;
+  width: 100%;
   background-image: url(assets/tables_play_area.png);
 
   &__top-area {

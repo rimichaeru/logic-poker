@@ -306,12 +306,81 @@ class Game {
     } else {
       this.setAnte();
       this.newDeal();
+      if (Number(document.querySelector(".coin-amount").textContent) <= 0) {
+        this.restartGame();
+        return;
+      }
     }
   }
 
   restartGame(direct = false) {
+    const reset = () => {
+
+      const cardGridCards = document.querySelectorAll(".card-grid .card");
+      
+      for (let i = 0; i < this.savedCards.length; i++) {
+        cardGridCards[i].id = "";
+        
+        if (this.savedCards[i][this.savedCards[i].length - 1] == "H") {
+          cardGridCards[i].classList = "card";
+        } else if (this.savedCards[i][this.savedCards[i].length - 1] == "C") {
+          cardGridCards[i].classList = "card";
+        } else if (this.savedCards[i][this.savedCards[i].length - 1] == "S") {
+          cardGridCards[i].classList = "card";
+        } else {
+          cardGridCards[i].classList = "card";
+        }
+        
+        cardGridCards[i].innerHTML += `<p class="u"></p><div class="l"></div>`;
+        cardGridCards[i].querySelector(".u").textContent = "";
+      }
+      
+      this.pMain.hideCards();
+      this.pOne.hideCards();
+      this.pTwo.hideCards();
+      this.pThree.hideCards();
+      
+      this.pMain.winner.toggle("winner", true);
+      this.pOne.winner.toggle("winner", true);
+      this.pTwo.winner.toggle("winner", true);
+      this.pThree.winner.toggle("winner", true);
+      
+      //location.reload(true);
+      this.roundCount = 0;
+      this.hasBet = false;
+      this.isNewRound = true;
+      
+      // init held coins
+      this.heldCoins = 0;
+      this.setCoins(3000);
+      
+      this.savedCards = [];
+      
+      // set ante
+      // init deck and players
+      this.pot = 0;
+      this.deck = null;
+      this.pMain = null;
+      this.pOne = null;
+      this.pTwo = null;
+      this.pThree = null;
+
+      this.newRound();
+      
+      // Saving backup of main player's cards
+      this.savedpMain = this.pMain;
+      this.pMain.showCards();
+      
+      this.winner = null;
+      this.draw = null;
+      
+      // bet event listener
+      this.initButtons();
+    }
+
     if (direct) {
-      location.reload(true);
+      reset()
+      
     } else {
       const audio = new Audio("./assets/lose.mp3");
       audio.play();
@@ -330,7 +399,7 @@ class Game {
           event.target == document.querySelector(".modal-bg")
         ) {
           modal.style.display = "none";
-          location.reload(true);
+          reset();
         }
       };
 
@@ -356,8 +425,8 @@ class Game {
       const modal = document.querySelector(".modal-input");
 
       // For over max bet
-      if (Number(betAmount) > this.pot * 4) {
-        modal.childNodes[0].textContent = `Please enter a bet less than 2*pot (${
+      if (Number(betAmount) > this.pot * 2) {
+        modal.childNodes[0].textContent = `Please enter a bet less than 2 x pot (${
           this.pot * 2
         })`;
       } else {
@@ -419,6 +488,7 @@ class Game {
 
     this.hasBet = true;
     this.isNewRound = false;
+    this.roundCount++
   }
 
   decideWinner() {
@@ -1155,4 +1225,4 @@ class Game {
   }
 }
 
-const play = new Game();
+let play = new Game();
