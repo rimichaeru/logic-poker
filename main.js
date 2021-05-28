@@ -420,7 +420,8 @@ class Game {
     if (
       Number(betAmount) > this.heldCoins ||
       Number(betAmount) % 1 != 0 ||
-      Number(betAmount) > this.pot * 2
+      Number(betAmount) > this.pot * 2 || 
+      Number(betAmount) < 0
     ) {
       const modal = document.querySelector(".modal-input");
 
@@ -429,6 +430,8 @@ class Game {
         modal.childNodes[0].textContent = `Please enter a bet less than 2 x pot (${
           this.pot * 2
         })`;
+      } else if (Number(betAmount) < 0) {
+        modal.childNodes[0].textContent = `Don't be so negative!`;
       } else {
         modal.childNodes[0].textContent = `Please enter an appropriate amount.`;
       }
