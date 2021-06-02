@@ -46,3 +46,8 @@ Tip: Remember, there's a baseline 1/4 chance to win!
  - Display rank of winning hand
  - Odd percentages of current hand, can toggle off and on
  - Local and online multiplayer
+
+
+<br>
+
+<img src="https://user-images.githubusercontent.com/63876944/120496974-f0b7b400-c3b5-11eb-80da-2c8a00a5b191.png" data-canonical-src="https://user-images.githubusercontent.com/63876944/120496974-f0b7b400-c3b5-11eb-80da-2c8a00a5b191.png" width="220" height="360" />
